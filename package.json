@@ -5,7 +5,8 @@
   "keywords": [],
   "license": "MIT",
   "author": "Ioram Gordadze",
-  "main": "index.js",
+  "type": "module",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc && tsc-alias",
     "postbuild": "npx copyfiles ./package.json dist/",
