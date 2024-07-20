@@ -1,0 +1,45 @@
+{
+  "name": "math-expression-evaluator",
+  "version": "1.0.0",
+  "description": "Math expression evaluator",
+  "keywords": [],
+  "license": "MIT",
+  "author": "Ioram Gordadze",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "postbuild": "npx copyfiles ./package.json dist/",
+    "clean:all": "npx rimraf ./**/dist ./**/node_modules --glob",
+    "delete:husky:ci": "npm pkg delete scripts.postinstall && npm pkg delete scripts.prepare",
+    "dev": "npx concurrently --kill-others \"tsc --watch\" \"tsc-alias --watch\"",
+    "format": "prettier --no-error-on-unmatched-pattern --write \"./*.{js,ts}\" package.json",
+    "format:pkgjson": "prettier --write package.json",
+    "git:clear": "npm run git:prune-origin && npm run git:del-local-branches",
+    "git:del-local-branches": "git branch -vv | grep 'origin/.*: gone]' | awk '{print $1}' | xargs git branch -D",
+    "git:prune-origin": "git remote prune origin",
+    "postinstall": "npm run pre-commit:init && npm run pre-commit:init-script && npm run format:pkgjson",
+    "pre-commit": "lint-staged",
+    "pre-commit:init": "husky init",
+    "pre-commit:init-script": "npx path-exists-cli .husky && echo \"npm run pre-commit\" > .husky/pre-commit",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,jsx,mjs,cjs,ts,tsx,json,css,scss,md,html}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "20.14.11",
+    "husky": "9.1.1",
+    "lint-staged": "15.2.7",
+    "prettier": "3.3.3",
+    "prettier-plugin-organize-imports": "4.0.0",
+    "prettier-plugin-packagejson": "2.5.1",
+    "tsc-alias": "1.8.10",
+    "typescript": "5.5.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=10.0.0"
+  }
+}
