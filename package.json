@@ -5,14 +5,14 @@
   "keywords": [],
   "license": "MIT",
   "author": "Ioram Gordadze",
-  "type": "module",
+  "type": "commonjs",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc && tsc-alias",
     "postbuild": "npx copyfiles ./package.json dist/",
+    "build:dev": "npx concurrently --kill-others \"tsc --watch\" \"tsc-alias --watch\"",
     "clean:all": "npx rimraf ./**/dist ./**/node_modules --glob",
     "delete:husky:ci": "npm pkg delete scripts.postinstall && npm pkg delete scripts.prepare",
-    "dev": "npx concurrently --kill-others \"tsc --watch\" \"tsc-alias --watch\"",
     "format": "prettier --no-error-on-unmatched-pattern --write \"./*.{js,ts}\" package.json",
     "format:pkgjson": "prettier --write package.json",
     "git:clear": "npm run git:prune-origin && npm run git:del-local-branches",
@@ -22,7 +22,9 @@
     "pre-commit": "lint-staged",
     "pre-commit:init": "husky init",
     "pre-commit:init-script": "npx path-exists-cli .husky && echo \"npm run pre-commit\" > .husky/pre-commit",
-    "prepare": "husky"
+    "prepare": "husky",
+    "start": "npm run build && NODE_PATH=./dist node dist/index.js",
+    "start:dev": "NODE_PATH=./src nodemon"
   },
   "lint-staged": {
     "*.{js,jsx,mjs,cjs,ts,tsx,json,css,scss,md,html}": [
@@ -33,9 +35,11 @@
     "@types/node": "20.14.11",
     "husky": "9.1.1",
     "lint-staged": "15.2.7",
+    "nodemon": "3.1.4",
     "prettier": "3.3.3",
     "prettier-plugin-organize-imports": "4.0.0",
     "prettier-plugin-packagejson": "2.5.1",
+    "ts-node": "10.9.2",
     "tsc-alias": "1.8.10",
     "typescript": "5.5.3"
   },

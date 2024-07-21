@@ -2,12 +2,8 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
-    "module": "ESNext",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "CommonJS",
     "skipLibCheck": true,
     /* Bundler mode */
     "moduleResolution": "node",
@@ -40,16 +36,9 @@
     /* Path alias */
     "baseUrl": "./src",
     "paths": {
-      "@app/*": [
-        "./*"
-      ]
+      "@app/*": ["./*"]
     }
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }
