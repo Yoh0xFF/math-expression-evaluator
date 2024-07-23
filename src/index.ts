@@ -1,3 +1,4 @@
+import { Lexer } from '@app/lexer';
 import { createInterface } from 'readline';
 
 const reader = createInterface({
@@ -11,6 +12,8 @@ function prompt() {
       reader.close();
       console.log('Goodbye!');
     } else {
+      const lexer = new Lexer(expression);
+      lexer.tokenize();
       console.log('==> ', expression);
       prompt();
     }
