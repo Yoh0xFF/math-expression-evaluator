@@ -12,10 +12,15 @@ function prompt() {
       reader.close();
       console.log('Goodbye!');
     } else {
-      const lexer = new Lexer(expression);
-      const tokens = lexer.tokenize();
-      console.log('==> Expression: ', expression);
-      console.log('==> Tokens: ', tokens);
+      try {
+        const lexer = new Lexer(expression);
+        const tokens = lexer.tokenize();
+        console.log(
+          `\nExpression: ${expression}\nTokens:\n${JSON.stringify(tokens, null, 2)}\n`,
+        );
+      } catch (error) {
+        console.error(`\nExecution failed: ${(error as Error).message}\n`);
+      }
       prompt();
     }
   });

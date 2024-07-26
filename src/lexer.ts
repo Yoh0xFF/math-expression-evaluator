@@ -25,16 +25,16 @@ export class Lexer {
         break;
       }
 
-      const currentChar = this.pickChar();
-      if (this.operators.includes(currentChar)) {
+      const nextChar = this.pickChar();
+      if (this.operators.includes(nextChar)) {
         tokens.push({ type: 'Operator', value: this.getChar() });
-      } else if (this.parentheses.includes(currentChar)) {
+      } else if (this.parentheses.includes(nextChar)) {
         tokens.push({ type: 'Parenthesis', value: this.getChar() });
-      } else if (this.isDigit(currentChar)) {
+      } else if (this.isDigit(nextChar)) {
         tokens.push({ type: 'Operand', value: this.readInteger() });
       } else {
         throw new Error(
-          `Invalid expression, unknow character at ${this.index} index`,
+          `Invalid expression, unknow character '${nextChar}' at index ${this.index}`,
         );
       }
     }
