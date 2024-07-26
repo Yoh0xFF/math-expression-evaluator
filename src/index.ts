@@ -13,8 +13,9 @@ function prompt() {
       console.log('Goodbye!');
     } else {
       const lexer = new Lexer(expression);
-      lexer.tokenize();
-      console.log('==> ', expression);
+      const tokens = lexer.tokenize();
+      console.log('==> Expression: ', expression);
+      console.log('==> Tokens: ', tokens);
       prompt();
     }
   });

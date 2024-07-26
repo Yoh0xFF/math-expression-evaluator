@@ -1,7 +1,11 @@
-export const tokens: Array<string> = ['+', '-', '*', '/'] as const;
-export type TokenType = (typeof tokens)[number];
+export interface Token {
+  type: 'Operand' | 'Operator' | 'Parenthesis';
+  value: string;
+}
 
 export class Lexer {
+  private operators: Array<string> = ['+', '-', '*', '/'];
+  private parentheses: Array<string> = ['(', ')'];
   private expression: string;
   private index: number;
   private eof: number;
@@ -12,59 +16,66 @@ export class Lexer {
     this.eof = expression.length;
   }
 
-  tokenize() {
-    while (!this.isEof()) {
-      while (this.skipWhitespace()) {
-        this.getChar();
+  tokenize(): Array<Token> {
+    const tokens: Array<Token> = [];
+
+    while (true) {
+      this.skipWhitespace();
+      if (this.isEof()) {
+        break;
       }
 
-      const c = this.getChar();
-      if (this.isToken(c)) {
-        // TODO
-      } else if (this.isDigit(c)) {
-        // TODO
+      const currentChar = this.pickChar();
+      if (this.operators.includes(currentChar)) {
+        tokens.push({ type: 'Operator', value: this.getChar() });
+      } else if (this.parentheses.includes(currentChar)) {
+        tokens.push({ type: 'Parenthesis', value: this.getChar() });
+      } else if (this.isDigit(currentChar)) {
+        tokens.push({ type: 'Operand', value: this.readInteger() });
+      } else {
+        throw new Error(
+          `Invalid expression, unknow character at ${this.index} index`,
+        );
       }
     }
-  }
 
-  private getChar(): string {
-    if (this.isEof()) {
-      throw new Error('End of expression');
-    }
-    return this.expression.at(this.index++)!;
-  }
-
-  private pickChar(): string {
-    if (this.isEof()) {
-      throw new Error('End of expression');
-    }
-    return this.expression.at(this.index)!;
-  }
-
-  private isToken(c: string): boolean {
-    return tokens.includes(c);
-  }
-
-  private isDigit(c: string): boolean {
-    return c >= '0' && c <= '9';
+    return tokens;
   }
 
   private isWhitespace(c: string): boolean {
     return c === ' ' || c === '\n' || c == '\t';
   }
 
-  private skipWhitespace(): boolean {
+  private skipWhitespace() {
+    if (!this.isEof() && this.isWhitespace(this.pickChar())) {
+      this.getChar();
+    }
+  }
+
+  private isDigit(c: string): boolean {
+    return c >= '0' && c <= '9';
+  }
+
+  private readInteger(): string {
+    const startIndex = this.index;
+    while (!this.isEof() && this.isDigit(this.pickChar())) {
+      this.getChar();
+    }
+    return this.expression.substring(startIndex, this.index);
+  }
+
+  private getChar(): string {
     if (this.isEof()) {
-      return false;
+      throw new Error('Cannot get a char end of expression');
     }
+    return this.expression.at(this.index++)!;
+  }
 
-    const c = this.pickChar();
-    if (this.isWhitespace(c)) {
-      this.index++;
-      return true;
+  private pickChar(): string {
+    if (this.isEof()) {
+      throw new Error('Cannot pick a char end of expression');
     }
-
-    return false;
+    return this.expression.at(this.index)!;
   }
 
   private isEof(): boolean {
