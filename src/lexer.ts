@@ -1,8 +1,3 @@
-export interface Token {
-  type: 'Operand' | 'Operator' | 'Parenthesis';
-  value: string;
-}
-
 export class Lexer {
   private operators: Array<string> = ['+', '-', '*', '/'];
   private parentheses: Array<string> = ['(', ')'];
@@ -38,6 +33,8 @@ export class Lexer {
         );
       }
     }
+
+    tokens.push({ type: 'EOF', value: '' });
 
     return tokens;
   }
@@ -81,4 +78,9 @@ export class Lexer {
   private isEof(): boolean {
     return this.index === this.eof;
   }
+}
+
+export interface Token {
+  type: 'Operand' | 'Operator' | 'Parenthesis' | 'EOF';
+  value: string;
 }
