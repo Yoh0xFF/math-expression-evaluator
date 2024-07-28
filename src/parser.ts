@@ -83,20 +83,20 @@ export class Parser {
   }
 }
 
-interface Expression {}
+export interface Expression {}
 
-class LiteralExpression implements Expression {
+export class LiteralExpression implements Expression {
   constructor(public value: number) {}
 }
 
-class UnaryExpression implements Expression {
+export class UnaryExpression implements Expression {
   constructor(
     public operator: string,
     public right: Expression,
   ) {}
 }
 
-class BinaryExpression implements Expression {
+export class BinaryExpression implements Expression {
   constructor(
     public left: Expression,
     public operator: string,
@@ -104,8 +104,8 @@ class BinaryExpression implements Expression {
   ) {}
 }
 
-class GroupingExpression implements Expression {
+export class GroupingExpression implements Expression {
   constructor(public expression: Expression) {}
 }
 
-class EofExpression implements Expression {}
+export class EofExpression implements Expression {}

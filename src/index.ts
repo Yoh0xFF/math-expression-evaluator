@@ -1,3 +1,4 @@
+import { evaluateExpression } from '@app/interpreter';
 import { Lexer } from '@app/lexer';
 import { Parser } from '@app/parser';
 import { createInterface } from 'readline';
@@ -25,6 +26,9 @@ function prompt() {
         console.log(
           `\nExpression: ${expression}\nAST:\n${JSON.stringify(ast, null, 2)}\n`,
         );
+
+        const result = evaluateExpression(ast);
+        console.log(`\nExpression: ${expression}\nResult:\n${result}\n`);
       } catch (error) {
         console.error(`\nExecution failed: ${(error as Error).message}\n`);
       }
