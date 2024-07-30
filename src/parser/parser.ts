@@ -1,12 +1,23 @@
-import { Token } from '@app/lexer';
+import { Lexer } from '@app/lexer/lexer';
+import {
+  BinaryExpression,
+  EofExpression,
+  Expression,
+  GroupingExpression,
+  LiteralExpression,
+  UnaryExpression,
+} from '@app/model/ast';
+import { Token } from '@app/model/token';
 
 export class Parser {
-  private tokens: Array<Token>;
-  private index: number;
+  private lexer: Lexer;
+  private token: Token;
+  private nextToken: Token;
 
-  constructor(tokens: Array<Token>) {
-    this.tokens = tokens;
-    this.index = 0;
+  constructor(lexer: Lexer) {
+    this.lexer = lexer;
+    this.token = lexer.nextToken();
+    this.nextToken = lexer.nextToken();
   }
 
   parseExpression(): Expression {
@@ -58,7 +69,7 @@ export class Parser {
 
   private parsePrimary(): Expression {
     if (this.pickToken().type === 'Operand') {
-      return new LiteralExpression(parseInt(this.getToken().value));
+      return new LiteralExpression(parseFloat(this.getToken().value));
     }
     if (this.pickToken().type === 'Parenthesis') {
       this.getToken(); // Skip '(' token
@@ -71,41 +82,13 @@ export class Parser {
   }
 
   private pickToken(): Token {
-    return this.tokens[this.index]!;
+    return this.token;
   }
 
   private getToken(): Token {
-    return this.isEof() ? this.tokens[this.index]! : this.tokens[this.index++]!;
+    const result = this.token;
+    this.token = this.nextToken;
+    this.nextToken = this.lexer.nextToken();
+    return result;
   }
-
-  private isEof() {
-    return this.pickToken().type === 'EOF';
-  }
 }
-
-export interface Expression {}
-
-export class LiteralExpression implements Expression {
-  constructor(public value: number) {}
-}
-
-export class UnaryExpression implements Expression {
-  constructor(
-    public operator: string,
-    public right: Expression,
-  ) {}
-}
-
-export class BinaryExpression implements Expression {
-  constructor(
-    public left: Expression,
-    public operator: string,
-    public right: Expression,
-  ) {}
-}
-
-export class GroupingExpression implements Expression {
-  constructor(public expression: Expression) {}
-}
-
-export class EofExpression implements Expression {}

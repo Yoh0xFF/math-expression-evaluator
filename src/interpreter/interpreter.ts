@@ -4,7 +4,7 @@ import {
   GroupingExpression,
   LiteralExpression,
   UnaryExpression,
-} from '@app/parser';
+} from '@app/model/ast';
 
 export function evaluateExpression(expression: Expression): number {
   if (expression instanceof LiteralExpression) {

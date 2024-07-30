@@ -1,6 +1,6 @@
-import { evaluateExpression } from '@app/interpreter';
-import { Lexer } from '@app/lexer';
-import { Parser } from '@app/parser';
+import { evaluateExpression } from '@app/interpreter/interpreter';
+import { Lexer } from '@app/lexer/lexer';
+import { Parser } from '@app/parser/parser';
 import { createInterface } from 'readline';
 
 const reader = createInterface({
@@ -16,12 +16,7 @@ function prompt() {
     } else {
       try {
         const lexer = new Lexer(expression);
-        const tokens = lexer.tokenize();
-        console.log(
-          `\nExpression: ${expression}\nTokens:\n${JSON.stringify(tokens, null, 2)}\n`,
-        );
-
-        const parser = new Parser(tokens);
+        const parser = new Parser(lexer);
         const ast = parser.parseExpression();
         console.log(
           `\nExpression: ${expression}\nAST:\n${JSON.stringify(ast, null, 2)}\n`,
