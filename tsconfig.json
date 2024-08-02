@@ -34,10 +34,7 @@
     /* output */
     "outDir": "./dist",
     /* Path alias */
-    "baseUrl": "./src",
-    "paths": {
-      "@app/*": ["./*"]
-    }
+    "baseUrl": "./src"
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

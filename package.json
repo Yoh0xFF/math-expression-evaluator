@@ -8,9 +8,9 @@
   "type": "commonjs",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc && tsc-alias",
+    "build": "tsc",
     "postbuild": "npx copyfiles ./package.json dist/",
-    "build:dev": "npx concurrently --kill-others \"tsc --watch\" \"tsc-alias --watch\"",
+    "build:dev": "tsc --watch",
     "clean:all": "npx rimraf ./**/dist ./**/node_modules --glob",
     "delete:husky:ci": "npm pkg delete scripts.postinstall && npm pkg delete scripts.prepare",
     "format": "prettier --no-error-on-unmatched-pattern --write \"./*.{js,ts}\" package.json",
@@ -43,8 +43,6 @@
     "prettier-plugin-organize-imports": "4.0.0",
     "prettier-plugin-packagejson": "2.5.1",
     "ts-node": "10.9.2",
-    "tsc-alias": "1.8.10",
-    "tsconfig-paths": "4.2.0",
     "typescript": "5.5.3"
   },
   "engines": {

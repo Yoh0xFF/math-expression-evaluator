@@ -1,4 +1,4 @@
-import { Token } from '@app/model/token';
+import { Token } from 'model/token';
 
 export class Lexer {
   private operators: Array<string> = ['+', '-', '*', '/'];

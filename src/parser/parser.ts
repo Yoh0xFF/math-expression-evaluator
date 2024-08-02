@@ -1,6 +1,6 @@
-import { Lexer } from '@app/lexer/lexer';
-import { Expression } from '@app/model/ast';
-import { Token } from '@app/model/token';
+import { Lexer } from 'lexer/lexer';
+import { Expression } from 'model/ast';
+import { Token } from 'model/token';
 
 export class Parser {
   private lexer: Lexer;
