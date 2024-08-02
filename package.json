@@ -2,9 +2,14 @@
   "name": "math-expression-evaluator",
   "version": "1.0.0",
   "description": "Math expression evaluator",
-  "keywords": [],
+  "keywords": [
+    "Lexer",
+    "Recursive descent parser",
+    "Abstract syntax tree",
+    "Interpreter"
+  ],
   "license": "MIT",
-  "author": "Ioram Gordadze",
+  "author": "Ioram Gordadze <Yoh0xFF@gmail.com>",
   "type": "commonjs",
   "main": "dist/index.js",
   "scripts": {
