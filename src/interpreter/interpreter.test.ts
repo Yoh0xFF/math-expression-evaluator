@@ -58,4 +58,16 @@ describe('tests/interpreter', () => {
 
     strictEqual(result, 5);
   });
+
+  it('throw error on division by zero', () => {
+    const expression = '(1 + 4) * 5 / (5 + -5)';
+    const parser = new Parser(new Lexer(expression));
+    const ast = parser.parseExpression();
+
+    try {
+      evaluateExpression(ast);
+    } catch (error) {
+      strictEqual((error as Error).message, 'Division by zero');
+    }
+  });
 });
