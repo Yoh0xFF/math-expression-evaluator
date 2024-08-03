@@ -42,7 +42,7 @@
     "chalk": "4.1.2"
   },
   "devDependencies": {
-    "@types/node": "20.14.11",
+    "@types/node": "22.1.0",
     "husky": "9.1.4",
     "lint-staged": "15.2.7",
     "nodemon": "3.1.4",
