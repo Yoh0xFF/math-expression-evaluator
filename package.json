@@ -29,7 +29,9 @@
     "pre-commit:init-script": "npx path-exists-cli .husky && echo \"npm run pre-commit\" > .husky/pre-commit",
     "prepare": "husky",
     "start": "npm run build && NODE_PATH=./dist node dist/index.js",
-    "start:dev": "NODE_PATH=./src nodemon"
+    "start:dev": "NODE_PATH=./src nodemon",
+    "test": "NODE_PATH=./src node --require ts-node/register --test src/**/*.test.ts",
+    "test:dev": "NODE_PATH=./src node --require ts-node/register --test --watch src/**/*.test.ts"
   },
   "lint-staged": {
     "*.{js,jsx,mjs,cjs,ts,tsx,json,css,scss,md,html}": [

@@ -38,7 +38,7 @@ export class Lexer {
   }
 
   private skipWhitespace() {
-    if (this.isWhitespace(this.pickChar())) {
+    while (this.isWhitespace(this.pickChar())) {
       this.getChar();
     }
   }
