@@ -1,8 +1,8 @@
-import { evaluateExpression } from 'interpreter/interpreter';
-import { Lexer } from 'lexer/lexer';
 import { strictEqual } from 'node:assert';
 import { describe, it } from 'node:test';
-import { Parser } from 'parser/parser';
+import { evaluateExpression } from '../interpreter/interpreter';
+import { Lexer } from '../lexer/lexer';
+import { Parser } from '../parser/parser';
 
 describe('tests/interpreter', () => {
   it('evaluate term operators', () => {
