@@ -16,7 +16,7 @@ export class Lexer {
   nextToken(): Token {
     this.skipWhitespace();
     if (this.isEnd()) {
-      return { type: 'END', value: '' };
+      return { type: 'EoE', value: '' };
     }
 
     const nextChar = this.pickChar();

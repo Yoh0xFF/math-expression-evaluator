@@ -1,4 +1,4 @@
-export type TokenType = 'Operand' | 'Operator' | 'Parenthesis' | 'END';
+export type TokenType = 'Operand' | 'Operator' | 'Parenthesis' | 'EoE';
 
 export interface Token {
   type: TokenType;
