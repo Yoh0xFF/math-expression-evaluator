@@ -25,7 +25,6 @@ function prompt() {
           const parser = new Parser(lexer);
           const ast = parser.parseExpression();
           const result = evaluateExpression(ast);
-          console.log(JSON.stringify(ast, null, 2));
 
           console.log(
             chalk.cyan(`\nExpression: ${expression}\nResult: ${result}\n`),
