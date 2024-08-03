@@ -1,4 +1,4 @@
-import { Expression } from 'model/ast';
+import { Expression } from '../model/ast';
 
 export function evaluateExpression(expression: Expression): number {
   switch (expression.type) {

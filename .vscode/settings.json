@@ -1,4 +1,3 @@
 {
-  "editor.formatOnSave": true,
-  "javascript.preferences.importModuleSpecifier": "non-relative"
+  "editor.formatOnSave": true
 }

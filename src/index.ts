@@ -1,8 +1,8 @@
 import chalk from 'chalk';
-import { evaluateExpression } from 'interpreter/interpreter';
-import { Lexer } from 'lexer/lexer';
-import { Parser } from 'parser/parser';
 import { createInterface } from 'readline';
+import { evaluateExpression } from './interpreter/interpreter';
+import { Lexer } from './lexer/lexer';
+import { Parser } from './parser/parser';
 
 const reader = createInterface({
   input: process.stdin,
