@@ -1,7 +1,6 @@
-import { LexerType } from '../lexer';
 import { ParserType } from './parser';
+import { PrattParser } from './pratt-parser';
 import { RecursiveDescentParser } from './recursive-descent-parser';
 
-export const Parser: new (lexer: LexerType) => ParserType =
-  RecursiveDescentParser;
+export { PrattParser, RecursiveDescentParser };
 export type { ParserType };

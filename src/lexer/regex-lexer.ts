@@ -41,8 +41,6 @@ export class RegexLexer implements LexerType {
       };
     }
 
-    throw new Error(
-      `Invalid expression, unknow character '${subExpression[0]}' at index ${this.index}`,
-    );
+    return { type: 'EoE', value: '' };
   }
 }
