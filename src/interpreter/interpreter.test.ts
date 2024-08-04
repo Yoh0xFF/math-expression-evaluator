@@ -4,7 +4,7 @@ import { Lexer } from '../lexer';
 import { Parser } from '../parser';
 import { evaluateExpression } from './';
 
-describe('tests/interpreter', () => {
+describe('Test Interpreter', () => {
   it('evaluate term operators', () => {
     const expression = '7.2 + 9 - 7.2';
     const parser = new Parser(new Lexer(expression));

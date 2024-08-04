@@ -18,22 +18,26 @@ export class ScannerLexer implements LexerType {
       return { type: 'EoE', value: '' };
     }
 
-    const nextChar = this.pickChar();
-    if (this.operators.includes(nextChar)) {
+    const currentChar = this.currentChar();
+    if (this.operators.includes(currentChar)) {
+      const value = this.currentChar();
+      this.advance();
       return {
-        type: `Operator${nextChar}` as TokenType,
-        value: this.getChar(),
+        type: `Operator${currentChar}` as TokenType,
+        value,
       };
-    } else if (this.parentheses.includes(nextChar)) {
+    } else if (this.parentheses.includes(currentChar)) {
+      const value = this.currentChar();
+      this.advance();
       return {
-        type: `Parenthesis${nextChar}` as TokenType,
-        value: this.getChar(),
+        type: `Parenthesis${currentChar}` as TokenType,
+        value,
       };
-    } else if (this.isDigit(nextChar)) {
+    } else if (this.isDigit(currentChar)) {
       return { type: 'Operand', value: this.readNumber() };
     } else {
       throw new Error(
-        `Invalid expression, unknow character '${nextChar}' at index ${this.index}`,
+        `Invalid expression, unknow character '${currentChar}' at index ${this.index}`,
       );
     }
   }
@@ -43,8 +47,8 @@ export class ScannerLexer implements LexerType {
   }
 
   private skipWhitespace() {
-    while (this.isWhitespace(this.pickChar())) {
-      this.getChar();
+    while (this.isWhitespace(this.currentChar())) {
+      this.advance();
     }
   }
 
@@ -55,36 +59,33 @@ export class ScannerLexer implements LexerType {
   private readNumber(): string {
     const startIndex = this.index;
 
-    while (this.isDigit(this.pickChar())) {
-      this.getChar();
+    while (this.isDigit(this.currentChar())) {
+      this.advance();
     }
 
-    if (this.pickChar() === '.' && this.isDigit(this.pickNextChar())) {
-      this.getChar();
+    if (this.currentChar() === '.' && this.isDigit(this.nextChar())) {
+      this.advance();
     }
 
-    while (this.isDigit(this.pickChar())) {
-      this.getChar();
+    while (this.isDigit(this.currentChar())) {
+      this.advance();
     }
 
     return this.expression.substring(startIndex, this.index);
   }
 
-  private getChar(): string {
-    if (this.isEnd()) {
-      return '\0';
-    }
-    return this.expression.at(this.index++)!;
+  private advance() {
+    this.index++;
   }
 
-  private pickChar(): string {
+  private currentChar(): string {
     if (this.isEnd()) {
       return '\0';
     }
     return this.expression.at(this.index)!;
   }
 
-  private pickNextChar(): string {
+  private nextChar(): string {
     if (this.index + 1 >= this.end) {
       return '\0';
     }

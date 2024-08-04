@@ -19,10 +19,11 @@ export class RecursiveDescentParser implements ParserType {
     let expression = this.parseFactor();
 
     while (
-      this.pickToken().type.startsWith('Operator') &&
-      ['+', '-'].includes(this.pickToken().value)
+      this.token.type.startsWith('Operator') &&
+      ['+', '-'].includes(this.token.value)
     ) {
-      const operator = this.getToken().value;
+      const operator = this.token.value;
+      this.advance();
       const right = this.parseFactor();
       expression = { type: 'Binary', left: expression, operator, right };
     }
@@ -34,10 +35,11 @@ export class RecursiveDescentParser implements ParserType {
     let expression = this.parseUnary();
 
     while (
-      this.pickToken().type.startsWith('Operator') &&
-      ['*', '/'].includes(this.pickToken().value)
+      this.token.type.startsWith('Operator') &&
+      ['*', '/'].includes(this.token.value)
     ) {
-      const operator = this.getToken().value;
+      const operator = this.token.value;
+      this.advance();
       const right = this.parseUnary();
       expression = { type: 'Binary', left: expression, operator, right };
     }
@@ -47,10 +49,11 @@ export class RecursiveDescentParser implements ParserType {
 
   private parseUnary(): Expression {
     if (
-      this.pickToken().type.startsWith('Operator') &&
-      ['-', '+'].includes(this.pickToken().value)
+      this.token.type.startsWith('Operator') &&
+      ['-', '+'].includes(this.token.value)
     ) {
-      const operator = this.getToken().value;
+      const operator = this.token.value;
+      this.advance();
       const right = this.parseUnary();
       return { type: 'Unary', operator, right };
     }
@@ -59,26 +62,25 @@ export class RecursiveDescentParser implements ParserType {
   }
 
   private parsePrimary(): Expression {
-    if (this.pickToken().type === 'Operand') {
-      return { type: 'Literal', value: parseFloat(this.getToken().value) };
+    if (this.token.type === 'Operand') {
+      const expression: Expression = {
+        type: 'Literal',
+        value: parseFloat(this.token.value),
+      };
+      this.advance();
+      return expression;
     }
-    if (this.pickToken().type.startsWith('Parenthesis')) {
-      this.getToken(); // Skip '(' token
+    if (this.token.type.startsWith('Parenthesis')) {
+      this.advance(); // Skip '(' token
       const expression = this.parseExpression();
-      this.getToken(); // Skip ')' token
+      this.advance(); // Skip ')' token
       return { type: 'Group', expression };
     }
     throw new Error('Unknow expression');
   }
 
-  private pickToken(): Token {
-    return this.token;
-  }
-
-  private getToken(): Token {
-    const result = this.token;
+  private advance() {
     this.token = this.nextToken;
     this.nextToken = this.lexer.nextToken();
-    return result;
   }
 }

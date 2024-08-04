@@ -4,16 +4,16 @@ import { LexerType } from './lexer';
 import { RegexLexer } from './regex-lexer';
 import { ScannerLexer } from './scanner-lexer';
 
-describe('tests/LexerWithRegex', () => {
+describe('Test LexerWithRegex', () => {
   runTests(RegexLexer);
 });
 
-describe('tests/LexerWirthScanner', function () {
+describe('Test LexerWirthScanner', function () {
   runTests(ScannerLexer);
 });
 
 function runTests(Lexer: new (expression: string) => LexerType) {
-  describe('tests', () => {
+  describe('Run tests', () => {
     it('parse term operators', () => {
       const expression = '7 + 9 - 7';
       const lexer = new Lexer(expression);
