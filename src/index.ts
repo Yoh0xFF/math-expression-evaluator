@@ -2,22 +2,22 @@ import chalk from 'chalk';
 import { config } from 'dotenv';
 import { createInterface } from 'readline';
 import { evaluateExpression } from './interpreter';
-import { LexerType, RegexLexer, ScannerLexer } from './lexer';
-import { ParserType, PrattParser, RecursiveDescentParser } from './parser';
+import { getLexerClass } from './lexer';
+import { getParserClass } from './parser';
 
 config();
 
 // Select which lexer to use
-const lexerConfig = process.env['LEXER'] ?? 'regex';
+const lexerConfig = (process.env['LEXER'] ?? 'Regex') as 'Regex' | 'Scanner';
 console.log(chalk.red(`Using the ${lexerConfig} lexer.`));
-const Lexer: new (expression: string) => LexerType =
-  lexerConfig == 'regex' ? RegexLexer : ScannerLexer;
+const Lexer = getLexerClass(lexerConfig);
 
 // Select which parser to use
-const parserConfig = process.env['PARSER'] ?? 'recursive';
+const parserConfig = (process.env['PARSER'] ?? 'Recursive') as
+  | 'Recursive'
+  | 'Pratt';
 console.log(chalk.red(`Using the ${parserConfig} parser.`));
-export const Parser: new (lexer: LexerType) => ParserType =
-  parserConfig == 'recursive' ? RecursiveDescentParser : PrattParser;
+export const Parser = getParserClass(parserConfig);
 
 const reader = createInterface({
   input: process.stdin,

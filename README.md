@@ -22,8 +22,8 @@ Examples:
 
 You can set which lexer and parser to use in the `.env` configuration file.
 
-- env variable `LEXER` (supported options are `regex`, `scanner`)
-- env variavle `PARSER` (supported options are `recursive`, `pratt`)
+- env variable `LEXER` (supported options are `Regex`, `Scanner`)
+- env variavle `PARSER` (supported options are `Recursive`, `Pratt`)
 
 ## NPM Commands
 

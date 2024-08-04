@@ -1,8 +1,11 @@
 import { strictEqual } from 'node:assert';
 import { describe, it } from 'node:test';
-import { Lexer } from '../lexer';
-import { Parser } from '../parser';
+import { getLexerClass } from '../lexer';
+import { getParserClass } from '../parser';
 import { evaluateExpression } from './';
+
+const Lexer = getLexerClass('Regex');
+const Parser = getParserClass('Recursive');
 
 describe('Test Interpreter', () => {
   it('evaluate term operators', () => {

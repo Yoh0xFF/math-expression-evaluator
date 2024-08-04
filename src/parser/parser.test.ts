@@ -1,9 +1,11 @@
 import { deepStrictEqual } from 'node:assert';
 import { describe, it } from 'node:test';
 import { ParserType } from '.';
-import { Lexer, LexerType } from '../lexer';
+import { getLexerClass, LexerType } from '../lexer';
 import { PrattParser } from './pratt-parser';
 import { RecursiveDescentParser } from './recursive-descent-parser';
+
+const Lexer = getLexerClass('Regex');
 
 describe('Test PrattParser', function () {
   runTests(PrattParser);
