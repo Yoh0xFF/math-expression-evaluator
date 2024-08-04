@@ -1,9 +1,9 @@
-import { Token } from '../model';
+import { Token, TokenType } from '../model';
 import { LexerType } from './lexer';
 
 export class ScannerLexer implements LexerType {
-  private operators: Array<string> = ['+', '-', '*', '/'];
-  private parentheses: Array<string> = ['(', ')'];
+  private operators: Array<string> = ['+', '-', '*', '/'] as const;
+  private parentheses: Array<string> = ['(', ')'] as const;
   private index: number;
   private end: number;
 
@@ -20,9 +20,15 @@ export class ScannerLexer implements LexerType {
 
     const nextChar = this.pickChar();
     if (this.operators.includes(nextChar)) {
-      return { type: 'Operator', value: this.getChar() };
+      return {
+        type: `Operator${nextChar}` as TokenType,
+        value: this.getChar(),
+      };
     } else if (this.parentheses.includes(nextChar)) {
-      return { type: 'Parenthesis', value: this.getChar() };
+      return {
+        type: `Parenthesis${nextChar}` as TokenType,
+        value: this.getChar(),
+      };
     } else if (this.isDigit(nextChar)) {
       return { type: 'Operand', value: this.readNumber() };
     } else {

@@ -19,7 +19,7 @@ export class RecursiveDescentParser implements ParserType {
     let expression = this.parseFactor();
 
     while (
-      this.pickToken().type === 'Operator' &&
+      this.pickToken().type.startsWith('Operator') &&
       ['+', '-'].includes(this.pickToken().value)
     ) {
       const operator = this.getToken().value;
@@ -34,7 +34,7 @@ export class RecursiveDescentParser implements ParserType {
     let expression = this.parseUnary();
 
     while (
-      this.pickToken().type === 'Operator' &&
+      this.pickToken().type.startsWith('Operator') &&
       ['*', '/'].includes(this.pickToken().value)
     ) {
       const operator = this.getToken().value;
@@ -47,7 +47,7 @@ export class RecursiveDescentParser implements ParserType {
 
   private parseUnary(): Expression {
     if (
-      this.pickToken().type === 'Operator' &&
+      this.pickToken().type.startsWith('Operator') &&
       ['-', '+'].includes(this.pickToken().value)
     ) {
       const operator = this.getToken().value;
@@ -62,7 +62,7 @@ export class RecursiveDescentParser implements ParserType {
     if (this.pickToken().type === 'Operand') {
       return { type: 'Literal', value: parseFloat(this.getToken().value) };
     }
-    if (this.pickToken().type === 'Parenthesis') {
+    if (this.pickToken().type.startsWith('Parenthesis')) {
       this.getToken(); // Skip '(' token
       const expression = this.parseExpression();
       this.getToken(); // Skip ')' token

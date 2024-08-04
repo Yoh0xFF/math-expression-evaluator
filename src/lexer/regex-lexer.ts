@@ -6,8 +6,12 @@ export class RegexLexer implements LexerType {
   private tokenTypeMatchers: Array<[RegExp, TokenType | null]> = [
     [/^\s+/, null],
     [/^\d+(\.\d+)?/, 'Operand'],
-    [/^[+\-*\/]/, 'Operator'],
-    [/^[()]/, 'Parenthesis'],
+    [/^[+]/, 'Operator+'],
+    [/^[\-]/, 'Operator-'],
+    [/^[*]/, 'Operator*'],
+    [/^[\/]/, 'Operator/'],
+    [/^[(]/, 'Parenthesis('],
+    [/^[)]/, 'Parenthesis)'],
   ];
 
   constructor(public expression: string) {
