@@ -1,7 +1,7 @@
 import { deepStrictEqual } from 'node:assert';
 import { describe, it } from 'node:test';
-import { Lexer } from '../lexer/lexer';
-import { Parser } from '../parser/parser';
+import { Parser } from '.';
+import { Lexer } from '../lexer';
 
 describe('tests/parser', () => {
   it('parse term operators', () => {
