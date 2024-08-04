@@ -5,6 +5,7 @@
   "keywords": [
     "Lexer",
     "Recursive descent parser",
+    "Pratt parser",
     "Abstract syntax tree",
     "Interpreter"
   ],
