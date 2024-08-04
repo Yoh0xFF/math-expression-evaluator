@@ -18,6 +18,13 @@ Examples:
 - `(1 + 4) * 5 / (10 + -5)`
 - `(2 + 7) * 2 + 2.5`
 
+## Configuration
+
+You can set which lexer and parser to use in the `.env` configuration file.
+
+- env variable `LEXER` (supported options are `regex`, `scanner`)
+- env variavle `PARSER` (supported options are `recursive`, `pratt`)
+
 ## NPM Commands
 
 - Run program: `npm run start`
