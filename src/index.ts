@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 import { createInterface } from 'readline';
 import { evaluateExpression } from './interpreter';
 import { getLexerClass } from './lexer';
+import { InvalidExpression } from './model';
 import { getParserClass } from './parser';
 
 config();
@@ -46,7 +47,9 @@ function prompt() {
           );
         } catch (error) {
           console.log(
-            chalk.red(`\nExecution failed: ${(error as Error).message}\n`),
+            chalk.red(
+              `\nExecution failed: ${(error as InvalidExpression).message}\n`,
+            ),
           );
         }
         prompt();

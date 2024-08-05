@@ -1,5 +1,11 @@
 import { LexerType } from '../lexer';
-import { Expression, PrecedenceType, Token, TokenType } from '../model';
+import {
+  Expression,
+  InvalidExpression,
+  PrecedenceType,
+  Token,
+  TokenType,
+} from '../model';
 import { ParserType } from './parser';
 
 export class PrattParser implements ParserType {
@@ -41,17 +47,29 @@ export class PrattParser implements ParserType {
   }
 
   parseExpression(): Expression {
-    return this.parseExpressionWithPrecedence(this.precedence.None);
+    const expression = this.parseRecursive(this.precedence.None);
+
+    if (this.nextToken.type !== 'EoE') {
+      throw new InvalidExpression(
+        this.nextToken.value[0],
+        this.nextToken.index,
+      );
+    }
+
+    return expression;
   }
 
-  private parseExpressionWithPrecedence(precedence: number): Expression {
+  private parseRecursive(precedence: number): Expression {
     const prefixParser = this.prefixParsers.get(this.token.type);
     if (prefixParser == null) {
       throw new Error('Unknow expression');
     }
     let left = prefixParser.bind(this)();
 
-    while (this.nextToken.type != 'EoE' && precedence < this.peekPrecedence()) {
+    while (
+      this.nextToken.type != 'EoE' &&
+      precedence < this.nextTokenPrecedence()
+    ) {
       const infixParser = this.infixParsers.get(this.nextToken.type);
       if (infixParser == null) {
         return left;
@@ -74,23 +92,30 @@ export class PrattParser implements ParserType {
       type: 'Binary',
       operator,
       left,
-      right: this.parseExpressionWithPrecedence(precedence),
+      right: this.parseRecursive(precedence),
     };
   }
 
   private parseUnary(): Expression {
-    const operator = this.token.value;
+    const { value: operator } = this.token;
     this.advance();
-    const right = this.parseExpressionWithPrecedence(this.precedence.Unary);
-    return { type: 'Unary', operator, right };
+
+    return {
+      type: 'Unary',
+      operator,
+      right: this.parseRecursive(this.precedence.Unary),
+    };
   }
 
   private parseGroup(): Expression {
     this.advance(); // Skip '(' token
-    const expression = this.parseExpressionWithPrecedence(
-      this.precedence['None'],
-    );
-    this.advance(); // Skip ')' token
+    const expression = this.parseRecursive(this.precedence['None']);
+    this.advance(); // move to ')' token
+
+    if (this.token.type !== 'Parenthesis)') {
+      throw new InvalidExpression(this.token.value[0], this.token.index);
+    }
+
     return { type: 'Group', expression };
   }
 
@@ -102,7 +127,7 @@ export class PrattParser implements ParserType {
     return expression;
   }
 
-  private peekPrecedence(): number {
+  private nextTokenPrecedence(): number {
     const { type } = this.nextToken;
     return this.precedence[this.tokenPrecedence.get(type) ?? 'None'];
   }

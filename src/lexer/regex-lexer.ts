@@ -1,4 +1,4 @@
-import { Token, TokenType } from '../model';
+import { InvalidExpression, Token, TokenType } from '../model';
 import { LexerType } from './lexer';
 
 export class RegexLexer implements LexerType {
@@ -44,11 +44,9 @@ export class RegexLexer implements LexerType {
     }
 
     if (this.index === this.expression.length) {
-      return { index: this.expression.length, type: 'EoE', value: '' };
+      return { index: this.expression.length, type: 'EoE', value: ';' };
     } else {
-      throw new Error(
-        `Invalid expression, unknow character '${subExpression[0]}' at index ${this.index}`,
-      );
+      throw new InvalidExpression(subExpression[0], this.index);
     }
   }
 }

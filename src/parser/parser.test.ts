@@ -1,4 +1,4 @@
-import { deepStrictEqual } from 'node:assert';
+import { deepStrictEqual, fail, strictEqual } from 'node:assert';
 import { describe, it } from 'node:test';
 import { ParserType } from '.';
 import { getLexerClass, LexerType } from '../lexer';
@@ -202,6 +202,66 @@ function runTests(Parser: new (lexer: LexerType) => ParserType) {
           },
         },
       });
+    });
+
+    it('throw error for invalid parentheses', () => {
+      const expression = '(1 + 4( * 5';
+      const parser = new Parser(new Lexer(expression));
+
+      try {
+        parser.parseExpression();
+        fail('Should not reach');
+      } catch (error) {
+        strictEqual(
+          (error as Error).message,
+          "Invalid expression, unknow character '(' at index 6",
+        );
+      }
+    });
+
+    it('throw error for missing right parentheses', () => {
+      const expression = '(1 + 4 * 5';
+      const parser = new Parser(new Lexer(expression));
+
+      try {
+        parser.parseExpression();
+        fail('Should not reach');
+      } catch (error) {
+        strictEqual(
+          (error as Error).message,
+          "Invalid expression, unknow character ';' at index 10",
+        );
+      }
+    });
+
+    it('throw error for missing left parentheses', () => {
+      const expression = '1 + 4) * 5';
+      const parser = new Parser(new Lexer(expression));
+
+      try {
+        parser.parseExpression();
+        fail('Should not reach');
+      } catch (error) {
+        strictEqual(
+          (error as Error).message,
+          "Invalid expression, unknow character ')' at index 5",
+        );
+      }
+    });
+
+    it('throw error for invalid unary operator', () => {
+      const expression = '1 + *5';
+      const parser = new Parser(new Lexer(expression));
+
+      try {
+        parser.parseExpression();
+        fail('Should not reach');
+      } catch (error) {
+        strictEqual(
+          (error as Error).message,
+          "Invalid expression, unknow character '*' at index 4",
+        );
+      }
     });
   });
 }

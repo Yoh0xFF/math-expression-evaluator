@@ -1,5 +1,5 @@
 import { LexerType } from '../lexer';
-import { Expression, Token } from '../model';
+import { Expression, InvalidExpression, Token } from '../model';
 import { ParserType } from './parser';
 
 export class RecursiveDescentParser implements ParserType {
@@ -12,6 +12,16 @@ export class RecursiveDescentParser implements ParserType {
   }
 
   parseExpression(): Expression {
+    const expression = this.parseRecursive();
+
+    if (this.token.type !== 'EoE') {
+      throw new InvalidExpression(this.token.value[0], this.token.index);
+    }
+
+    return expression;
+  }
+
+  private parseRecursive(): Expression {
     return this.parseTerm();
   }
 
@@ -70,13 +80,20 @@ export class RecursiveDescentParser implements ParserType {
       this.advance();
       return expression;
     }
-    if (this.token.type.startsWith('Parenthesis')) {
+
+    if (this.token.type === 'Parenthesis(') {
       this.advance(); // Skip '(' token
-      const expression = this.parseExpression();
+      const expression = this.parseRecursive();
+
+      if (this.token.value !== ')') {
+        throw new InvalidExpression(this.token.value[0], this.token.index);
+      }
       this.advance(); // Skip ')' token
+
       return { type: 'Group', expression };
     }
-    throw new Error('Unknow expression');
+
+    throw new InvalidExpression(this.token.value[0], this.token.index);
   }
 
   private advance() {

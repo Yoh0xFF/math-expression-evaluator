@@ -1,4 +1,4 @@
-import { Token, TokenType } from '../model';
+import { InvalidExpression, Token, TokenType } from '../model';
 import { LexerType } from './lexer';
 
 export class ScannerLexer implements LexerType {
@@ -15,7 +15,7 @@ export class ScannerLexer implements LexerType {
   nextToken(): Token {
     this.skipWhitespace();
     if (this.isEnd()) {
-      return { index: this.expression.length, type: 'EoE', value: '' };
+      return { index: this.expression.length, type: 'EoE', value: ';' };
     }
 
     const currentChar = this.currentChar();
@@ -40,9 +40,7 @@ export class ScannerLexer implements LexerType {
     } else if (this.isDigit(currentChar)) {
       return { index: this.index, type: 'Operand', value: this.readNumber() };
     } else {
-      throw new Error(
-        `Invalid expression, unknow character '${currentChar}' at index ${this.index}`,
-      );
+      throw new InvalidExpression(currentChar, this.index);
     }
   }
 
