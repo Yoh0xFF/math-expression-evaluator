@@ -9,6 +9,7 @@ export type TokenType =
   | 'EoE';
 
 export interface Token {
+  index: number;
   type: TokenType;
   value: string;
 }

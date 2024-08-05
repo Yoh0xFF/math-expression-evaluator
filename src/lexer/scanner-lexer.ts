@@ -15,26 +15,30 @@ export class ScannerLexer implements LexerType {
   nextToken(): Token {
     this.skipWhitespace();
     if (this.isEnd()) {
-      return { type: 'EoE', value: '' };
+      return { index: this.expression.length, type: 'EoE', value: '' };
     }
 
     const currentChar = this.currentChar();
     if (this.operators.includes(currentChar)) {
+      const index = this.index;
       const value = this.currentChar();
       this.advance();
       return {
+        index,
         type: `Operator${currentChar}` as TokenType,
         value,
       };
     } else if (this.parentheses.includes(currentChar)) {
+      const index = this.index;
       const value = this.currentChar();
       this.advance();
       return {
+        index,
         type: `Parenthesis${currentChar}` as TokenType,
         value,
       };
     } else if (this.isDigit(currentChar)) {
-      return { type: 'Operand', value: this.readNumber() };
+      return { index: this.index, type: 'Operand', value: this.readNumber() };
     } else {
       throw new Error(
         `Invalid expression, unknow character '${currentChar}' at index ${this.index}`,
