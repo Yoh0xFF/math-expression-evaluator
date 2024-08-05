@@ -62,7 +62,7 @@ export class PrattParser implements ParserType {
   private parseRecursive(precedence: number): Expression {
     const prefixParser = this.prefixParsers.get(this.token.type);
     if (prefixParser == null) {
-      throw new Error('Unknow expression');
+      throw new InvalidExpression(this.token.value[0], this.token.index);
     }
     let left = prefixParser.bind(this)();
 
