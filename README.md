@@ -23,11 +23,11 @@ Examples:
 You can set which lexer and parser to use in the `.env` configuration file.
 
 - env variable `LEXER` (supported options are `Regex`, `Scanner`)
-- env variavle `PARSER` (supported options are `Recursive`, `Pratt`)
+- env variable `PARSER` (supported options are `Recursive`, `Pratt`)
 
 ## NPM Commands
 
-- Run program: `npm run start`
+- Run the program: `npm run start`
 - Run program in watch mode: `npm run start:dev`
 - Run unit tests: `npm run test`
 - Run unit tests in watch mode: `npm run test:dev`
