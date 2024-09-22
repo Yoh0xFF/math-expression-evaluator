@@ -1,7 +1,7 @@
 # Math expression evaluator
 
 <p align="center">
-  <img alt="pic" src="" />
+  <img alt="pic" src="https://raw.githubusercontent.com/Yoh0xFF/math-expression-evaluator/refs/heads/main/calculator.png" />
 </p>
 
 ## Desription
