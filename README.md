@@ -1,5 +1,11 @@
 # Math expression evaluator
 
+<p align="center">
+  <img alt="pic" src="" />
+</p>
+
+## Desription
+
 Simple math expression evaluator.
 
 Supported operators ordered by precedence:
