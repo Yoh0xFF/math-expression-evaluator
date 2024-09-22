@@ -18,7 +18,7 @@
     "postbuild": "npx copyfiles ./package.json dist/",
     "build:dev": "tsc --watch",
     "clean": "npx rimraf ./dist ./node_modules --glob",
-    "format": "prettier --no-error-on-unmatched-pattern --write \"./*.{js,ts}\" && prettier --write package.json",
+    "format": "prettier --no-error-on-unmatched-pattern --write \"./**/*.{js,ts}\" && prettier --write package.json",
     "git:clear": "git remote prune origin && git branch -vv | grep 'origin/.*: gone]' | awk '{print $1}' | xargs git branch -D",
     "postinstall": "npm run pre-commit:init && npm run pre-commit:init-script && prettier --write package.json",
     "pre-commit": "lint-staged",
