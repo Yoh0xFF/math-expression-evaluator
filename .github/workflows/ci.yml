@@ -1,0 +1,38 @@
+name: Test & Quality
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: ubuntu-latest
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v4
+        id: cache
+        with:
+          path: 'node_modules'
+          key: npm_modules_${{ hashFiles('**/package-lock.json') }}
+          restore-keys: npm_modules_
+
+      - name: Install NPM dependencies
+        run: npm ci
+
+      - name: Build app
+        run: npm run build
+
+      - name: Test app
+        run: npm run test
