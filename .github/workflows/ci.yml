@@ -25,8 +25,8 @@ jobs:
         id: cache
         with:
           path: 'node_modules'
-          key: npm_modules_${{ hashFiles('**/package-lock.json') }}
-          restore-keys: npm_modules_
+          key: node_modules_${{ hashFiles('package-lock.json') }}
+          restore-keys: node_modules_
 
       - name: Install NPM dependencies
         run: npm ci
