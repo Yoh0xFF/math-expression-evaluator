@@ -1,11 +1,8 @@
-import { LexerType } from '../lexer';
-import { ParserType } from './parser';
+import { Parser, ParserClassType } from './parser';
 import { PrattParser } from './pratt-parser';
 import { RecursiveDescentParser } from './recursive-descent-parser';
 
-export function getParserClass(
-  type: 'Recursive' | 'Pratt',
-): new (lexer: LexerType) => ParserType {
+export function getParserClass(type: 'Recursive' | 'Pratt'): ParserClassType {
   switch (type) {
     case 'Recursive':
       return RecursiveDescentParser;
@@ -14,4 +11,4 @@ export function getParserClass(
   }
 }
 
-export type { ParserType };
+export type { Parser, ParserClassType };

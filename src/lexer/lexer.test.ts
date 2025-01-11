@@ -1,6 +1,6 @@
 import { deepStrictEqual, strictEqual } from 'node:assert';
 import { describe, it } from 'node:test';
-import { LexerType } from './lexer';
+import { Lexer } from './lexer';
 import { RegexLexer } from './regex-lexer';
 import { ScannerLexer } from './scanner-lexer';
 
@@ -12,7 +12,7 @@ describe('Test LexerWirthScanner', function () {
   runTests(ScannerLexer);
 });
 
-function runTests(Lexer: new (expression: string) => LexerType) {
+function runTests(Lexer: new (expression: string) => Lexer) {
   describe('Run tests', () => {
     it('parse term operators', () => {
       const expression = '7 + 9 - 7';

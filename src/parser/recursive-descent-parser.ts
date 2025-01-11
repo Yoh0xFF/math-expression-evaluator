@@ -1,12 +1,12 @@
-import { LexerType } from '../lexer';
+import { Lexer } from '../lexer';
 import { Expression, InvalidExpression, Token } from '../model';
-import { ParserType } from './parser';
+import { Parser } from './parser';
 
-export class RecursiveDescentParser implements ParserType {
+export class RecursiveDescentParser implements Parser {
   private token: Token;
   private nextToken: Token;
 
-  constructor(public lexer: LexerType) {
+  constructor(public lexer: Lexer) {
     this.token = lexer.nextToken();
     this.nextToken = lexer.nextToken();
   }

@@ -1,12 +1,10 @@
-import { LexerType } from './lexer';
+import { Lexer, LexerClassType } from './lexer';
 import { RegexLexer } from './regex-lexer';
 import { ScannerLexer } from './scanner-lexer';
 
-export type { LexerType };
+export type { Lexer, LexerClassType };
 
-export function getLexerClass(
-  type: 'Regex' | 'Scanner',
-): new (expression: string) => LexerType {
+export function getLexerClass(type: 'Regex' | 'Scanner'): LexerClassType {
   switch (type) {
     case 'Regex':
       return RegexLexer;

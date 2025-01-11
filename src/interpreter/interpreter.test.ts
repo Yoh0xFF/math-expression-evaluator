@@ -1,7 +1,7 @@
 import { strictEqual } from 'node:assert';
 import { describe, it } from 'node:test';
-import { getLexerClass, LexerType } from '../lexer';
-import { getParserClass, ParserType } from '../parser';
+import { getLexerClass, LexerClassType } from '../lexer';
+import { getParserClass, ParserClassType } from '../parser';
 import { evaluateExpression } from './';
 
 describe('Test Interpreter with Regex lexer and Recursive parser', () => {
@@ -28,14 +28,11 @@ describe('Test Interpreter with Scanner lexer and Pratt parser', () => {
   runTests(Lexer, Parser);
 });
 
-function runTests(
-  Lexer: new (expression: string) => LexerType,
-  Parser: new (lexer: LexerType) => ParserType,
-) {
+function runTests(LexerClass: LexerClassType, ParserClass: ParserClassType) {
   describe('Run tests', () => {
     it('evaluate term operators', () => {
       const expression = '7.2 + 9 - 7.2';
-      const parser = new Parser(new Lexer(expression));
+      const parser = new ParserClass(new LexerClass(expression));
       const ast = parser.parseExpression();
       const result = evaluateExpression(ast);
 
@@ -44,7 +41,7 @@ function runTests(
 
     it('parse factor operators', () => {
       const expression = '7 * 9 / 7';
-      const parser = new Parser(new Lexer(expression));
+      const parser = new ParserClass(new LexerClass(expression));
       const ast = parser.parseExpression();
       const result = evaluateExpression(ast);
 
@@ -53,7 +50,7 @@ function runTests(
 
     it('correctly parse operator precedence', () => {
       const expression = '7.2 + 9 * 7';
-      const parser = new Parser(new Lexer(expression));
+      const parser = new ParserClass(new LexerClass(expression));
       const ast = parser.parseExpression();
       const result = evaluateExpression(ast);
 
@@ -62,7 +59,7 @@ function runTests(
 
     it('parse group expression', () => {
       const expression = '(5 + 9) / 2';
-      const parser = new Parser(new Lexer(expression));
+      const parser = new ParserClass(new LexerClass(expression));
       const ast = parser.parseExpression();
       const result = evaluateExpression(ast);
 
@@ -71,7 +68,7 @@ function runTests(
 
     it('correctly parse unary operator precedence', () => {
       const expression = '5 * -5';
-      const parser = new Parser(new Lexer(expression));
+      const parser = new ParserClass(new LexerClass(expression));
       const ast = parser.parseExpression();
       const result = evaluateExpression(ast);
 
@@ -80,7 +77,7 @@ function runTests(
 
     it('correctly parse complex expression', () => {
       const expression = '(1 + 4) * 5 / (10 + -5)';
-      const parser = new Parser(new Lexer(expression));
+      const parser = new ParserClass(new LexerClass(expression));
       const ast = parser.parseExpression();
       const result = evaluateExpression(ast);
 
@@ -89,7 +86,7 @@ function runTests(
 
     it('throw error on division by zero', () => {
       const expression = '(1 + 4) * 5 / (5 + -5)';
-      const parser = new Parser(new Lexer(expression));
+      const parser = new ParserClass(new LexerClass(expression));
       const ast = parser.parseExpression();
 
       try {

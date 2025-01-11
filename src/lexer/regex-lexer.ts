@@ -1,7 +1,7 @@
 import { InvalidExpression, Token, TokenType } from '../model';
-import { LexerType } from './lexer';
+import { Lexer } from './lexer';
 
-export class RegexLexer implements LexerType {
+export class RegexLexer implements Lexer {
   private index: number;
   private tokenTypeMatchers: Array<[RegExp, TokenType | null]> = [
     [/^\s+/, null],

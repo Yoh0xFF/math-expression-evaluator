@@ -1,7 +1,7 @@
 import { InvalidExpression, Token, TokenType } from '../model';
-import { LexerType } from './lexer';
+import { Lexer } from './lexer';
 
-export class ScannerLexer implements LexerType {
+export class ScannerLexer implements Lexer {
   private operators: Array<string> = ['+', '-', '*', '/'] as const;
   private parentheses: Array<string> = ['(', ')'] as const;
   private index: number;

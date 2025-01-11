@@ -1,8 +1,10 @@
-import { LexerType } from '../lexer';
+import { Lexer } from '../lexer/lexer';
 import { Expression } from '../model';
 
-export interface ParserType {
-  lexer: LexerType;
+export interface Parser {
+  lexer: Lexer;
 
   parseExpression(): Expression;
 }
+
+export type ParserClassType = new (lexer: Lexer) => Parser;

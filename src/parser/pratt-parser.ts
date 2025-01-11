@@ -1,4 +1,4 @@
-import { LexerType } from '../lexer';
+import { Lexer } from '../lexer';
 import {
   Expression,
   InvalidExpression,
@@ -6,9 +6,9 @@ import {
   Token,
   TokenType,
 } from '../model';
-import { ParserType } from './parser';
+import { Parser } from './parser';
 
-export class PrattParser implements ParserType {
+export class PrattParser implements Parser {
   private token: Token;
   private nextToken: Token;
 
@@ -41,7 +41,7 @@ export class PrattParser implements ParserType {
       ['Operator/', this.parseBinary],
     ]);
 
-  constructor(public lexer: LexerType) {
+  constructor(public lexer: Lexer) {
     this.token = lexer.nextToken();
     this.nextToken = lexer.nextToken();
   }
