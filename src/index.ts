@@ -17,7 +17,7 @@ const parserConfig = (process.env['PARSER'] ?? 'Recursive') as
 console.log(`Using the ${parserConfig} parser.`);
 export const ParserClass = getParserClass(parserConfig);
 
-// prompt();
+// Prompt
 const terminalInput = new TerminalInput(LexerClass, ParserClass);
 
 // Cleanup on exit
