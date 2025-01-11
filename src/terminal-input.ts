@@ -1,4 +1,3 @@
-import chalk from 'chalk';
 import {
   clearLine,
   createInterface,
@@ -160,7 +159,7 @@ class TtyInput {
       const parser = new this.ParserClass(lexer);
       processExpression(parser, expression);
     } else {
-      console.log(chalk.red(`\nEmpty expression\n`));
+      console.log(`\nEmpty expression\n`);
     }
     this.inputBuffer = '';
     this.cursorPos = 0;
@@ -229,12 +228,10 @@ function processExpression(parser: Parser, expression: string) {
     const ast = parser.parseExpression();
     const result = evaluateExpression(ast);
 
-    console.log(chalk.cyan(`\nExpression: ${expression}\nResult: ${result}\n`));
+    console.log(`\nExpression: ${expression}\nResult: ${result}\n`);
   } catch (error) {
     console.log(
-      chalk.red(
-        `\nExecution failed: ${(error as InvalidExpression).message}\n`,
-      ),
+      `\nExecution failed: ${(error as InvalidExpression).message}\n`,
     );
   }
 }
