@@ -39,7 +39,7 @@
     "dotenv": "16.4.7"
   },
   "devDependencies": {
-    "@types/node": "22.10.10",
+    "@types/node": "22.13.0",
     "husky": "9.1.7",
     "lint-staged": "15.4.3",
     "nodemon": "3.1.9",
