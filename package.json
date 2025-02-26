@@ -15,8 +15,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "postbuild": "npx copyfiles ./package.json dist/",
     "build:dev": "tsc --watch",
+    "postbuild": "npx copyfiles ./package.json dist/",
     "clean": "npx rimraf ./dist ./node_modules --glob",
     "format": "prettier --no-error-on-unmatched-pattern --write \"./**/*.{js,ts}\" && prettier --write package.json",
     "git:clear": "git remote prune origin && git branch -vv | grep 'origin/.*: gone]' | awk '{print $1}' | xargs git branch -D",
