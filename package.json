@@ -26,9 +26,9 @@
     "pre-commit:init-script": "npx path-exists-cli .husky && echo \"npm run pre-commit\" > .husky/pre-commit",
     "prepare": "husky",
     "start": "npm run build && node dist/index.js",
-    "start:dev": "nodemon",
-    "test": "node --require ts-node/register --test src/**/*.test.ts",
-    "test:dev": "node --require ts-node/register --test --watch src/**/*.test.ts"
+    "start:dev": "tsx ./src/index.ts",
+    "test": "node --import tsx --test src/**/*.test.ts",
+    "test:dev": "node --import tsx --test --watch src/**/*.test.ts"
   },
   "lint-staged": {
     "*.{js,jsx,mjs,cjs,ts,tsx,json,css,scss,md,html}": [
@@ -46,7 +46,7 @@
     "prettier": "3.4.2",
     "prettier-plugin-organize-imports": "4.1.0",
     "prettier-plugin-packagejson": "2.5.6",
-    "ts-node": "10.9.2",
+    "tsx": "4.19.3",
     "typescript": "5.7.2"
   },
   "engines": {

@@ -1,3 +1,1 @@
-import { evaluateExpression } from './interpreter';
-
-export { evaluateExpression };
+export * from './interpreter';
