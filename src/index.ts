@@ -1,7 +1,7 @@
 import { config } from 'dotenv';
-import { getLexerClass } from './lexer';
-import { getParserClass } from './parser';
-import { TerminalInput } from './terminal-input';
+import { getLexerClass } from 'lexer';
+import { getParserClass } from 'parser';
+import { TerminalInput } from 'terminal';
 
 config();
 

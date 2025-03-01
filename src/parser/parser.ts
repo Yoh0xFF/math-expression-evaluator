@@ -1,5 +1,5 @@
-import { Lexer } from '../lexer/lexer';
-import { Expression } from '../model';
+import { Lexer } from 'lexer';
+import { Expression } from 'model';
 
 export interface Parser {
   lexer: Lexer;

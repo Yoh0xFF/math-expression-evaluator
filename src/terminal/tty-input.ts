@@ -1,45 +1,9 @@
-import {
-  clearLine,
-  createInterface,
-  cursorTo,
-  emitKeypressEvents,
-  Interface,
-  Key,
-} from 'readline';
-import { evaluateExpression } from './interpreter';
-import { LexerClassType } from './lexer';
-import { InvalidExpression } from './model';
-import { Parser, ParserClassType } from './parser';
+import { LexerClassType } from 'lexer';
+import { ParserClassType } from 'parser';
+import { clearLine, cursorTo, emitKeypressEvents, Key } from 'readline';
+import { processExpression } from 'util/process-expression';
 
-export class TerminalInput {
-  private ttyInput: TtyInput | null = null;
-  private readerInput: ReaderInput | null = null;
-
-  constructor(
-    private LexerClass: LexerClassType,
-    private ParserClass: ParserClassType,
-  ) {
-    // Check if we're in a TTY environment
-    if (process.stdin.isTTY) {
-      // TTY (interactive terminal) mode
-      this.ttyInput = new TtyInput(this.LexerClass, this.ParserClass);
-    } else {
-      // Non-TTY mode (e.g., piped input or non-interactive environment)
-      this.readerInput = new ReaderInput(this.LexerClass, this.ParserClass);
-    }
-  }
-
-  cleanup() {
-    if (this.ttyInput) {
-      this.ttyInput.cleanup();
-    }
-    if (this.readerInput) {
-      this.readerInput.cleanup();
-    }
-  }
-}
-
-class TtyInput {
+export class TtyInput {
   private inputBuffer: string;
   private cursorPos: number;
   private history: string[];
@@ -182,56 +146,5 @@ class TtyInput {
     if (process.stdin.isTTY) {
       process.stdin.setRawMode(false);
     }
-  }
-}
-
-class ReaderInput {
-  private rl: Interface;
-
-  constructor(
-    private LexerClass: LexerClassType,
-    private ParserClass: ParserClassType,
-  ) {
-    // Current input state
-    this.rl = createInterface({
-      input: process.stdin,
-      output: process.stdout,
-      prompt: '> ',
-    });
-
-    this.rl.on('line', (line) => {
-      this.handleLine(line);
-    });
-
-    this.rl.prompt();
-  }
-
-  private handleLine(line: string) {
-    if (line.trim()) {
-      const expression = line;
-
-      // Process the input here
-      const lexer = new this.LexerClass(expression);
-      const parser = new this.ParserClass(lexer);
-      processExpression(parser, expression);
-    }
-    this.rl?.prompt();
-  }
-
-  cleanup() {
-    this.rl.close();
-  }
-}
-
-function processExpression(parser: Parser, expression: string) {
-  try {
-    const ast = parser.parseExpression();
-    const result = evaluateExpression(ast);
-
-    console.log(`\nExpression: ${expression}\nResult: ${result}\n`);
-  } catch (error) {
-    console.log(
-      `\nExecution failed: ${(error as InvalidExpression).message}\n`,
-    );
   }
 }

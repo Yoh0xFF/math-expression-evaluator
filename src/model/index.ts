@@ -1,5 +1,5 @@
-export * from './ast';
-export * from './token';
+export * from 'model/ast';
+export * from 'model/token';
 
 export class InvalidExpression {
   public message: string;

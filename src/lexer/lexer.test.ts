@@ -1,8 +1,8 @@
+import { LexerClassType } from 'lexer';
+import { RegexLexer } from 'lexer/regex-lexer';
+import { ScannerLexer } from 'lexer/scanner-lexer';
 import { deepStrictEqual, strictEqual } from 'node:assert';
 import { describe, it } from 'node:test';
-import { LexerClassType } from './lexer';
-import { RegexLexer } from './regex-lexer';
-import { ScannerLexer } from './scanner-lexer';
 
 describe('Test LexerWithRegex', () => {
   runTests(RegexLexer);

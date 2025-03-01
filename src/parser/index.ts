@@ -1,6 +1,6 @@
-import { Parser, ParserClassType } from './parser';
-import { PrattParser } from './pratt-parser';
-import { RecursiveDescentParser } from './recursive-descent-parser';
+import { Parser, ParserClassType } from 'parser/parser';
+import { PrattParser } from 'parser/pratt-parser';
+import { RecursiveDescentParser } from 'parser/recursive-descent-parser';
 
 export function getParserClass(type: 'Recursive' | 'Pratt'): ParserClassType {
   switch (type) {

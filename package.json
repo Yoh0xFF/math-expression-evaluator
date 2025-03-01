@@ -25,7 +25,7 @@
     "pre-commit:init": "husky init",
     "pre-commit:init-script": "npx path-exists-cli .husky && echo \"npm run pre-commit\" > .husky/pre-commit",
     "prepare": "husky",
-    "start": "npm run build && node dist/index.js",
+    "start": "npm run build && NODE_PATH=dist node dist/index.js",
     "start:dev": "tsx ./src/index.ts",
     "test": "node --import tsx --test src/**/*.test.ts",
     "test:dev": "node --import tsx --test --watch src/**/*.test.ts"

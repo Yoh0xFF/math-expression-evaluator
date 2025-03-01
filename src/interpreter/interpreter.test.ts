@@ -1,8 +1,8 @@
+import { evaluateExpression } from 'interpreter';
+import { getLexerClass, LexerClassType } from 'lexer';
 import { strictEqual } from 'node:assert';
 import { describe, it } from 'node:test';
-import { getLexerClass, LexerClassType } from '../lexer';
-import { getParserClass, ParserClassType } from '../parser';
-import { evaluateExpression } from './';
+import { getParserClass, ParserClassType } from 'parser';
 
 describe('Test Interpreter with Regex lexer and Recursive parser', () => {
   const Lexer = getLexerClass('Regex');
