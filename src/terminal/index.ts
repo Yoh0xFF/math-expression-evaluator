@@ -1,7 +1,7 @@
 import { LexerClassType } from 'lexer';
 import { ParserClassType } from 'parser';
-import { ReaderInput } from 'util/reader-input';
-import { TtyInput } from 'util/tty-input';
+import { ReaderInput } from 'terminal/reader-input';
+import { TtyInput } from 'terminal/tty-input';
 
 export class TerminalInput {
   private ttyInput: TtyInput | null = null;
