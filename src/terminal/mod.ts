@@ -1,7 +1,7 @@
-import { LexerClassType } from '@root/lexer/mod';
-import { ParserClassType } from '@root/parser/mod';
-import { ReaderInput } from '@root/terminal/reader-input';
-import { TtyInput } from '@root/terminal/tty-input';
+import { LexerClassType } from '../lexer/mod';
+import { ParserClassType } from '../parser/mod';
+import { ReaderInput } from './reader-input';
+import { TtyInput } from './tty-input';
 
 export class TerminalInput {
   private ttyInput: TtyInput | null = null;
