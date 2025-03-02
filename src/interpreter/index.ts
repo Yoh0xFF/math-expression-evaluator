@@ -1,4 +1,4 @@
-import { Expression } from 'model/mod';
+import { Expression } from '@root/model';
 
 export function evaluateExpression(expression: Expression): number {
   switch (expression.type) {

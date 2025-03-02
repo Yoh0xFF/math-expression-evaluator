@@ -1,12 +1,12 @@
-import { Lexer } from '../lexer/mod';
+import { Lexer } from '@root/lexer';
+import { Parser } from '@root/parser';
 import {
   Expression,
   InvalidExpression,
   PrecedenceType,
   Token,
   TokenType,
-} from '../model/mod';
-import { Parser } from '../parser/mod';
+} from '../model';
 
 export class PrattParser implements Parser {
   private token: Token;

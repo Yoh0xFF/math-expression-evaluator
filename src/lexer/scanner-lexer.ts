@@ -1,5 +1,5 @@
-import { Lexer } from '../lexer/lexer';
-import { InvalidExpression, Token, TokenType } from '../model/mod';
+import { Lexer } from '@root/lexer/lexer';
+import { InvalidExpression, Token, TokenType } from '@root/model';
 
 export class ScannerLexer implements Lexer {
   private operators: Array<string> = ['+', '-', '*', '/'] as const;

@@ -34,7 +34,10 @@
     /* output */
     "outDir": "./dist",
     /* Path alias */
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "paths": {
+      "@root/*": ["./*"]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

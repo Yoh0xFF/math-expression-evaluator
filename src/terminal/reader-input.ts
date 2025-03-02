@@ -1,7 +1,7 @@
+import { LexerClassType } from '@root/lexer';
+import { ParserClassType } from '@root/parser';
+import { processExpression } from '@root/terminal/process-expression';
 import { createInterface, Interface } from 'readline';
-import { LexerClassType } from '../lexer/mod';
-import { ParserClassType } from '../parser/mod';
-import { processExpression } from '../terminal/process-expression';
 
 export class ReaderInput {
   private rl: Interface;
