@@ -1,7 +1,7 @@
+import { getLexerClass } from '@root/lexer';
+import { getParserClass } from '@root/parser';
+import { TerminalInput } from '@root/terminal';
 import { config } from 'dotenv';
-import { getLexerClass } from 'lexer';
-import { getParserClass } from 'parser';
-import { TerminalInput } from 'terminal';
 
 config();
 

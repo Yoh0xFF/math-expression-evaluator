@@ -25,10 +25,10 @@
     "pre-commit:init": "husky init",
     "pre-commit:init-script": "npx path-exists-cli .husky && echo \"npm run pre-commit\" > .husky/pre-commit",
     "prepare": "husky",
-    "start": "npm run build && NODE_PATH=dist node dist/index.js",
-    "start:dev": "tsx ./src/index.ts",
-    "test": "node --import tsx --test src/**/*.test.ts",
-    "test:dev": "node --import tsx --test --watch src/**/*.test.ts"
+    "start": "npm run build && TS_NODE_BASEURL=./dist node -r tsconfig-paths/register dist/index.js",
+    "start:dev": "nodemon --exec 'ts-node -r tsconfig-paths/register' --watch 'src/**/*.ts' src/index.ts",
+    "test": "node -r ts-node/register -r tsconfig-paths/register --test src/**/*.test.ts",
+    "test:dev": "node -r ts-node/register -r tsconfig-paths/register --test --watch src/**/*.test.ts"
   },
   "lint-staged": {
     "*.{js,jsx,mjs,cjs,ts,tsx,json,css,scss,md,html}": [
@@ -46,7 +46,8 @@
     "prettier": "3.5.1",
     "prettier-plugin-organize-imports": "4.1.0",
     "prettier-plugin-packagejson": "2.5.8",
-    "tsx": "4.19.3",
+    "ts-node": "10.9.2",
+    "tsconfig-paths": "4.2.0",
     "typescript": "5.7.3"
   },
   "engines": {

@@ -1,9 +1,9 @@
-import { getLexerClass } from 'lexer';
+import { getLexerClass } from '@root/lexer';
+import { ParserClassType } from '@root/parser/parser';
+import { PrattParser } from '@root/parser/pratt-parser';
+import { RecursiveDescentParser } from '@root/parser/recursive-descent-parser';
 import { deepStrictEqual, fail, strictEqual } from 'node:assert';
 import { describe, it } from 'node:test';
-import { ParserClassType } from 'parser/parser';
-import { PrattParser } from 'parser/pratt-parser';
-import { RecursiveDescentParser } from 'parser/recursive-descent-parser';
 
 const Lexer = getLexerClass('Regex');
 

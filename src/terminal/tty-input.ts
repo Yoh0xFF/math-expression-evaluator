@@ -1,7 +1,7 @@
-import { LexerClassType } from 'lexer';
-import { ParserClassType } from 'parser';
+import { LexerClassType } from '@root/lexer';
+import { ParserClassType } from '@root/parser';
+import { processExpression } from '@root/terminal/process-expression';
 import { clearLine, cursorTo, emitKeypressEvents, Key } from 'readline';
-import { processExpression } from 'terminal/process-expression';
 
 export class TtyInput {
   private inputBuffer: string;

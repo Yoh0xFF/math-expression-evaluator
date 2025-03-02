@@ -1,6 +1,6 @@
-import { Lexer, LexerClassType } from 'lexer/lexer';
-import { RegexLexer } from 'lexer/regex-lexer';
-import { ScannerLexer } from 'lexer/scanner-lexer';
+import { Lexer, LexerClassType } from '@root/lexer/lexer';
+import { RegexLexer } from '@root/lexer/regex-lexer';
+import { ScannerLexer } from '@root/lexer/scanner-lexer';
 
 export type { Lexer, LexerClassType };
 
