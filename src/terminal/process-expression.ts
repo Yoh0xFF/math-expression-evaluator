@@ -1,6 +1,6 @@
-import { evaluateExpression } from '@root/interpreter';
-import { InvalidExpression } from '@root/model';
-import { Parser } from '@root/parser';
+import { evaluateExpression } from '@root/interpreter/mod';
+import { InvalidExpression } from '@root/model/mod';
+import { Parser } from '@root/parser/mod';
 
 export function processExpression(parser: Parser, expression: string) {
   try {

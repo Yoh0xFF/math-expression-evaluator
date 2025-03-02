@@ -1,6 +1,6 @@
-import { getLexerClass } from '@root/lexer';
-import { getParserClass } from '@root/parser';
-import { TerminalInput } from '@root/terminal';
+import { getLexerClass } from '@root/lexer/mod';
+import { getParserClass } from '@root/parser/mod';
+import { TerminalInput } from '@root/terminal/mod';
 import { config } from 'dotenv';
 
 config();

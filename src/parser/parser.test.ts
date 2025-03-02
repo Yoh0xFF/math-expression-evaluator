@@ -1,4 +1,4 @@
-import { getLexerClass } from '@root/lexer';
+import { getLexerClass } from '@root/lexer/mod';
 import { ParserClassType } from '@root/parser/parser';
 import { PrattParser } from '@root/parser/pratt-parser';
 import { RecursiveDescentParser } from '@root/parser/recursive-descent-parser';

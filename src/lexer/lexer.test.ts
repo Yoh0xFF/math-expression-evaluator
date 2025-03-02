@@ -1,4 +1,4 @@
-import { LexerClassType } from '@root/lexer';
+import { LexerClassType } from '@root/lexer/mod';
 import { RegexLexer } from '@root/lexer/regex-lexer';
 import { ScannerLexer } from '@root/lexer/scanner-lexer';
 import { deepStrictEqual, strictEqual } from 'node:assert';

@@ -1,5 +1,5 @@
-import { LexerClassType } from '@root/lexer';
-import { ParserClassType } from '@root/parser';
+import { LexerClassType } from '@root/lexer/mod';
+import { ParserClassType } from '@root/parser/mod';
 import { ReaderInput } from '@root/terminal/reader-input';
 import { TtyInput } from '@root/terminal/tty-input';
 

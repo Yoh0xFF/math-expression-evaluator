@@ -1,5 +1,5 @@
-import { LexerClassType } from '@root/lexer';
-import { ParserClassType } from '@root/parser';
+import { LexerClassType } from '@root/lexer/mod';
+import { ParserClassType } from '@root/parser/mod';
 import { processExpression } from '@root/terminal/process-expression';
 import { createInterface, Interface } from 'readline';
 

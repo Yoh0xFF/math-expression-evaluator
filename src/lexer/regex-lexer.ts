@@ -1,5 +1,5 @@
 import { Lexer } from '@root/lexer/lexer';
-import { InvalidExpression, Token, TokenType } from '@root/model';
+import { InvalidExpression, Token, TokenType } from '@root/model/mod';
 
 export class RegexLexer implements Lexer {
   private index: number;

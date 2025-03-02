@@ -1,4 +1,4 @@
-import { Token } from '@root/model';
+import { Token } from '@root/model/mod';
 
 export interface Lexer {
   expression: string;
