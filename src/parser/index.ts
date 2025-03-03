@@ -1,3 +1,4 @@
+import { appConfig } from '@root/appConfig.ts';
 import { Lexer } from '@root/lexer/index.ts';
 import { Expression } from '@root/model/index.ts';
 import { ParserInterface } from '@root/parser/interface.ts';
@@ -8,12 +9,7 @@ export class Parser implements ParserInterface {
   private parser: ParserInterface;
 
   constructor(public lexer: Lexer) {
-    // Select which parser to use
-    const parserConfig = (process.env['PARSER'] ?? 'Recursive') as
-      | 'Recursive'
-      | 'Pratt';
-
-    switch (parserConfig) {
+    switch (appConfig.parserType) {
       case 'Recursive':
         this.parser = new RecursiveDescentParser(lexer);
         break;

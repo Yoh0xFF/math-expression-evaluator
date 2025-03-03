@@ -1,3 +1,4 @@
+import { appConfig } from '@root/appConfig.ts';
 import { LexerInterface } from '@root/lexer/interface.ts';
 import { RegexLexer } from '@root/lexer/regex-lexer.ts';
 import { ScannerLexer } from '@root/lexer/scanner-lexer.ts';
@@ -7,11 +8,7 @@ export class Lexer implements LexerInterface {
   private lexer: LexerInterface;
 
   constructor(public expression: string) {
-    const lexerConfig = (process.env['LEXER'] ?? 'Regex') as
-      | 'Regex'
-      | 'Scanner';
-
-    switch (lexerConfig) {
+    switch (appConfig.lexerType) {
       case 'Regex':
         this.lexer = new RegexLexer(this.expression);
         break;
