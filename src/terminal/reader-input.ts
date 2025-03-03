@@ -1,6 +1,7 @@
+import { evaluateExpression } from '@root/interpreter/index.ts';
 import { LexerClassType } from '@root/lexer/index.ts';
+import { InvalidExpression } from '@root/model/index.ts';
 import { ParserClassType } from '@root/parser/index.ts';
-import { processExpression } from '@root/terminal/process-expression.ts';
 import { createInterface, Interface } from 'readline';
 
 export class ReaderInput {
@@ -31,7 +32,17 @@ export class ReaderInput {
       // Process the input here
       const lexer = new this.LexerClass(expression);
       const parser = new this.ParserClass(lexer);
-      processExpression(parser, expression);
+
+      try {
+        const ast = parser.parseExpression();
+        const result = evaluateExpression(ast);
+
+        console.log(`\nExpression: ${expression}\nResult: ${result}\n`);
+      } catch (error) {
+        console.log(
+          `\nExecution failed: ${(error as InvalidExpression).message}\n`,
+        );
+      }
     }
     this.rl?.prompt();
   }
