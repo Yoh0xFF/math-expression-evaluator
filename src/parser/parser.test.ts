@@ -1,19 +1,22 @@
+import { appConfig, ParserType } from '@root/appConfig.ts';
 import { Lexer } from '@root/lexer/index.ts';
 import { Parser } from '@root/parser/index.ts';
 import { deepStrictEqual, fail, strictEqual } from 'node:assert';
-import { describe, it } from 'node:test';
+import { beforeEach, describe, it, mock } from 'node:test';
 
 describe('Test PrattParser', function () {
-  process.env['PARSER'] = 'Pratt';
-  runTests();
+  runTests('Pratt');
 });
 
 describe('Test RecursiveDescentParser', () => {
-  process.env['PARSER'] = 'Recursive';
-  runTests();
+  runTests('Recursive');
 });
 
-function runTests() {
+function runTests(type: ParserType) {
+  beforeEach(() => {
+    mock.method(appConfig, 'getParserType', () => type);
+  });
+
   describe('Run tests', () => {
     it('parse term operators', () => {
       const expression = '7 + 9 - 7';

@@ -9,7 +9,7 @@ export class Parser implements ParserInterface {
   private parser: ParserInterface;
 
   constructor(public lexer: Lexer) {
-    switch (appConfig.parserType) {
+    switch (appConfig.getParserType()) {
       case 'Recursive':
         this.parser = new RecursiveDescentParser(lexer);
         break;

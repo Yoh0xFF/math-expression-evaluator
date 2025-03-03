@@ -1,38 +1,32 @@
+import { appConfig, LexerType, ParserType } from '@root/appConfig.ts';
 import { evaluateExpression } from '@root/interpreter/index.ts';
 import { Lexer } from '@root/lexer/index.ts';
 import { Parser } from '@root/parser/index.ts';
 import { strictEqual } from 'node:assert';
-import { describe, it } from 'node:test';
+import { beforeEach, describe, it, mock } from 'node:test';
 
 describe('Test Interpreter with Regex lexer and Recursive parser', () => {
-  process.env['LEXER'] = 'Regex';
-  process.env['PARSER'] = 'Recursive';
-
-  runTests();
+  runTests('Regex', 'Recursive');
 });
 
 describe('Test Interpreter with Regex lexer and Pratt parser', () => {
-  process.env['LEXER'] = 'Regex';
-  process.env['PARSER'] = 'Pratt';
-
-  runTests();
+  runTests('Regex', 'Pratt');
 });
 
 describe('Test Interpreter with Scanner lexer and Recursive parser', () => {
-  process.env['LEXER'] = 'Scanner';
-  process.env['PARSER'] = 'Recursive';
-
-  runTests();
+  runTests('Scanner', 'Recursive');
 });
 
 describe('Test Interpreter with Scanner lexer and Pratt parser', () => {
-  process.env['LEXER'] = 'Scanner';
-  process.env['PARSER'] = 'Pratt';
-
-  runTests();
+  runTests('Scanner', 'Pratt');
 });
 
-function runTests() {
+function runTests(lexerType: LexerType, parserType: ParserType) {
+  beforeEach(() => {
+    mock.method(appConfig, 'getLexerType', () => lexerType);
+    mock.method(appConfig, 'getParserType', () => parserType);
+  });
+
   describe('Run tests', () => {
     it('evaluate term operators', () => {
       const expression = '7.2 + 9 - 7.2';

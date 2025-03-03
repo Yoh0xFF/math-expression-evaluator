@@ -8,7 +8,7 @@ export class Lexer implements LexerInterface {
   private lexer: LexerInterface;
 
   constructor(public expression: string) {
-    switch (appConfig.lexerType) {
+    switch (appConfig.getLexerType()) {
       case 'Regex':
         this.lexer = new RegexLexer(this.expression);
         break;

@@ -6,8 +6,8 @@ export type LexerType = 'Regex' | 'Scanner';
 export type ParserType = 'Recursive' | 'Pratt';
 
 export interface AppConfig {
-  lexerType: LexerType;
-  parserType: ParserType;
+  getLexerType: () => LexerType;
+  getParserType: () => ParserType;
 }
 
 function initAppConfig(): AppConfig {
@@ -21,8 +21,8 @@ function initAppConfig(): AppConfig {
   const parserType = (process.env['PARSER'] ?? 'Recursive') as ParserType;
 
   return {
-    lexerType,
-    parserType,
+    getLexerType: () => lexerType,
+    getParserType: () => parserType,
   };
 }
 

@@ -1,18 +1,21 @@
+import { appConfig, LexerType } from '@root/appConfig.ts';
 import { Lexer } from '@root/lexer/index.ts';
 import { deepStrictEqual, strictEqual } from 'node:assert';
-import { describe, it } from 'node:test';
+import { beforeEach, describe, it, mock } from 'node:test';
 
 describe('Test LexerWithRegex', () => {
-  process.env['LEXER'] = 'Regex';
-  runTests();
+  runTests('Regex');
 });
 
 describe('Test LexerWirthScanner', function () {
-  process.env['LEXER'] = 'Scanner';
-  runTests();
+  runTests('Scanner');
 });
 
-function runTests() {
+function runTests(type: LexerType) {
+  beforeEach(() => {
+    mock.method(appConfig, 'getLexerType', () => type);
+  });
+
   describe('Run tests', () => {
     it('parse term operators', () => {
       const expression = '7 + 9 - 7';
