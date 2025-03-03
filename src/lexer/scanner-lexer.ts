@@ -1,4 +1,4 @@
-import { Lexer } from '@root/lexer/lexer.ts';
+import { Lexer } from '@root/lexer/interface.ts';
 import { InvalidExpression, Token, TokenType } from '@root/model/index.ts';
 
 export class ScannerLexer implements Lexer {

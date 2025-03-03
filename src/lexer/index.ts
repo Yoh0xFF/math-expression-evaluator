@@ -1,4 +1,4 @@
-import { Lexer, LexerClassType } from '@root/lexer/lexer.ts';
+import { Lexer, LexerClassType } from '@root/lexer/interface.ts';
 import { RegexLexer } from '@root/lexer/regex-lexer.ts';
 import { ScannerLexer } from '@root/lexer/scanner-lexer.ts';
 
