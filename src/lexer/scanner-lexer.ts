@@ -1,7 +1,7 @@
-import { Lexer } from '@root/lexer/interface.ts';
+import { LexerInterface } from '@root/lexer/interface.ts';
 import { InvalidExpression, Token, TokenType } from '@root/model/index.ts';
 
-export class ScannerLexer implements Lexer {
+export class ScannerLexer implements LexerInterface {
   private operators: Array<string> = ['+', '-', '*', '/'] as const;
   private parentheses: Array<string> = ['(', ')'] as const;
   private index: number;

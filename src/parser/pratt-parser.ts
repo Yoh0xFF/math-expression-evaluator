@@ -6,9 +6,9 @@ import {
   Token,
   TokenType,
 } from '@root/model/index.ts';
-import { Parser } from '@root/parser/index.ts';
+import { ParserInterface } from '@root/parser/interface.ts';
 
-export class PrattParser implements Parser {
+export class PrattParser implements ParserInterface {
   private token: Token;
   private nextToken: Token;
 

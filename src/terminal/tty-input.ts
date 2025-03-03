@@ -1,7 +1,7 @@
 import { evaluateExpression } from '@root/interpreter/index.ts';
-import { LexerClassType } from '@root/lexer/index.ts';
+import { Lexer } from '@root/lexer/index.ts';
 import { InvalidExpression } from '@root/model/index.ts';
-import { ParserClassType } from '@root/parser/index.ts';
+import { Parser } from '@root/parser/index.ts';
 import { clearLine, cursorTo, emitKeypressEvents, Key } from 'readline';
 
 export class TtyInput {
@@ -10,10 +10,7 @@ export class TtyInput {
   private history: string[];
   private historyIndex: number;
 
-  constructor(
-    private LexerClass: LexerClassType,
-    private ParserClass: ParserClassType,
-  ) {
+  constructor() {
     // Current input state
     this.inputBuffer = '';
     this.cursorPos = 0;
@@ -120,8 +117,8 @@ export class TtyInput {
       const expression = this.inputBuffer;
 
       // Process the input here
-      const lexer = new this.LexerClass(expression);
-      const parser = new this.ParserClass(lexer);
+      const lexer = new Lexer(expression);
+      const parser = new Parser(lexer);
 
       try {
         const ast = parser.parseExpression();

@@ -1,16 +1,13 @@
 import { evaluateExpression } from '@root/interpreter/index.ts';
-import { LexerClassType } from '@root/lexer/index.ts';
+import { Lexer } from '@root/lexer/index.ts';
 import { InvalidExpression } from '@root/model/index.ts';
-import { ParserClassType } from '@root/parser/index.ts';
+import { Parser } from '@root/parser/index.ts';
 import { createInterface, Interface } from 'readline';
 
 export class ReaderInput {
   private rl: Interface;
 
-  constructor(
-    private LexerClass: LexerClassType,
-    private ParserClass: ParserClassType,
-  ) {
+  constructor() {
     // Current input state
     this.rl = createInterface({
       input: process.stdin,
@@ -30,8 +27,8 @@ export class ReaderInput {
       const expression = line;
 
       // Process the input here
-      const lexer = new this.LexerClass(expression);
-      const parser = new this.ParserClass(lexer);
+      const lexer = new Lexer(expression);
+      const parser = new Parser(lexer);
 
       try {
         const ast = parser.parseExpression();

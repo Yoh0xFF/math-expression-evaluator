@@ -1,10 +1,8 @@
 import { Lexer } from '@root/lexer/index.ts';
 import { Expression } from '@root/model/index.ts';
 
-export interface Parser {
+export interface ParserInterface {
   lexer: Lexer;
 
   parseExpression(): Expression;
 }
-
-export type ParserClassType = new (lexer: Lexer) => Parser;

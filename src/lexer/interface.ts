@@ -1,9 +1,7 @@
 import { Token } from '@root/model/index.ts';
 
-export interface Lexer {
+export interface LexerInterface {
   expression: string;
 
   nextToken(): Token;
 }
-
-export type LexerClassType = new (expression: string) => Lexer;

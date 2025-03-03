@@ -1,7 +1,7 @@
-import { Lexer } from '@root/lexer/index.ts';
+import { LexerInterface } from '@root/lexer/interface.ts';
 import { InvalidExpression, Token, TokenType } from '@root/model/index.ts';
 
-export class RegexLexer implements Lexer {
+export class RegexLexer implements LexerInterface {
   private index: number;
   private tokenTypeMatchers: Array<[RegExp, TokenType | null]> = [
     [/^\s+/, null],

@@ -1,24 +1,12 @@
-import { getLexerClass } from '@root/lexer/index.ts';
-import { getParserClass } from '@root/parser/index.ts';
 import { TerminalInput } from '@root/terminal/index.ts';
 import { config } from 'dotenv';
 
 config();
-
-// Select which lexer to use
-const lexerConfig = (process.env['LEXER'] ?? 'Regex') as 'Regex' | 'Scanner';
-console.log(`Using the ${lexerConfig} lexer.`);
-const LexerClass = getLexerClass(lexerConfig);
-
-// Select which parser to use
-const parserConfig = (process.env['PARSER'] ?? 'Recursive') as
-  | 'Recursive'
-  | 'Pratt';
-console.log(`Using the ${parserConfig} parser.`);
-export const ParserClass = getParserClass(parserConfig);
+console.log('=====> Lexer config: ', process.env['LEXER']);
+console.log('=====> Parser config: ', process.env['PARSER']);
 
 // Prompt
-const terminalInput = new TerminalInput(LexerClass, ParserClass);
+const terminalInput = new TerminalInput();
 
 // Cleanup on exit
 process.on('exit', () => {

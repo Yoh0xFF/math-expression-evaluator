@@ -1,22 +1,22 @@
-import { LexerClassType } from '@root/lexer/interface.ts';
-import { RegexLexer } from '@root/lexer/regex-lexer.ts';
-import { ScannerLexer } from '@root/lexer/scanner-lexer.ts';
+import { Lexer } from '@root/lexer/index.ts';
 import { deepStrictEqual, strictEqual } from 'node:assert';
 import { describe, it } from 'node:test';
 
 describe('Test LexerWithRegex', () => {
-  runTests(RegexLexer);
+  process.env['LEXER'] = 'Regex';
+  runTests();
 });
 
 describe('Test LexerWirthScanner', function () {
-  runTests(ScannerLexer);
+  process.env['LEXER'] = 'Scanner';
+  runTests();
 });
 
-function runTests(LexerClass: LexerClassType) {
+function runTests() {
   describe('Run tests', () => {
     it('parse term operators', () => {
       const expression = '7 + 9 - 7';
-      const lexer = new LexerClass(expression);
+      const lexer = new Lexer(expression);
       deepStrictEqual(lexer.nextToken(), {
         index: 0,
         type: 'Operand',
@@ -46,7 +46,7 @@ function runTests(LexerClass: LexerClassType) {
 
     it('parse factor operators', () => {
       const expression = '7 * 9 / 7';
-      const lexer = new LexerClass(expression);
+      const lexer = new Lexer(expression);
       deepStrictEqual(lexer.nextToken(), {
         index: 0,
         type: 'Operand',
@@ -76,7 +76,7 @@ function runTests(LexerClass: LexerClassType) {
 
     it('parse float numbers', () => {
       const expression = '7.9 * 9.7';
-      const lexer = new LexerClass(expression);
+      const lexer = new Lexer(expression);
       deepStrictEqual(lexer.nextToken(), {
         index: 0,
         type: 'Operand',
@@ -96,7 +96,7 @@ function runTests(LexerClass: LexerClassType) {
 
     it('skip whitespace', () => {
       const expression = ' 7   * \t\n  9 \n ';
-      const lexer = new LexerClass(expression);
+      const lexer = new Lexer(expression);
       deepStrictEqual(lexer.nextToken(), {
         index: 1,
         type: 'Operand',
@@ -116,7 +116,7 @@ function runTests(LexerClass: LexerClassType) {
 
     it('parse group expression', () => {
       const expression = '(7 + 9) * 11';
-      const lexer = new LexerClass(expression);
+      const lexer = new Lexer(expression);
       deepStrictEqual(lexer.nextToken(), {
         index: 0,
         type: 'Parenthesis(',
@@ -156,7 +156,7 @@ function runTests(LexerClass: LexerClassType) {
 
     it('parse complex expression', () => {
       const expression = '(1 + 4) * 5 / (10 + -5)';
-      const lexer = new LexerClass(expression);
+      const lexer = new Lexer(expression);
       deepStrictEqual(lexer.nextToken(), {
         index: 0,
         type: 'Parenthesis(',
@@ -232,7 +232,7 @@ function runTests(LexerClass: LexerClassType) {
     it('throw error for invalid expression', () => {
       const expression = '7.9.1 + 9';
       try {
-        const lexer = new LexerClass(expression);
+        const lexer = new Lexer(expression);
         lexer.nextToken();
       } catch (error) {
         strictEqual(

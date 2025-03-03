@@ -1,25 +1,23 @@
-import { getLexerClass } from '@root/lexer/index.ts';
-import { ParserClassType } from '@root/parser/index.ts';
-import { PrattParser } from '@root/parser/pratt-parser.ts';
-import { RecursiveDescentParser } from '@root/parser/recursive-descent-parser.ts';
+import { Lexer } from '@root/lexer/index.ts';
+import { Parser } from '@root/parser/index.ts';
 import { deepStrictEqual, fail, strictEqual } from 'node:assert';
 import { describe, it } from 'node:test';
 
-const Lexer = getLexerClass('Regex');
-
 describe('Test PrattParser', function () {
-  runTests(PrattParser);
+  process.env['PARSER'] = 'Pratt';
+  runTests();
 });
 
 describe('Test RecursiveDescentParser', () => {
-  runTests(RecursiveDescentParser);
+  process.env['PARSER'] = 'Recursive';
+  runTests();
 });
 
-function runTests(ParserClass: ParserClassType) {
+function runTests() {
   describe('Run tests', () => {
     it('parse term operators', () => {
       const expression = '7 + 9 - 7';
-      const parser = new ParserClass(new Lexer(expression));
+      const parser = new Parser(new Lexer(expression));
       const ast = parser.parseExpression();
 
       deepStrictEqual(ast, {
@@ -46,7 +44,7 @@ function runTests(ParserClass: ParserClassType) {
 
     it('parse factor operators', () => {
       const expression = '7 * 9 / 7';
-      const parser = new ParserClass(new Lexer(expression));
+      const parser = new Parser(new Lexer(expression));
       const ast = parser.parseExpression();
 
       deepStrictEqual(ast, {
@@ -73,7 +71,7 @@ function runTests(ParserClass: ParserClassType) {
 
     it('correctly parse operator precedence', () => {
       const expression = '7 + 9 * 7';
-      const parser = new ParserClass(new Lexer(expression));
+      const parser = new Parser(new Lexer(expression));
       const ast = parser.parseExpression();
 
       deepStrictEqual(ast, {
@@ -100,7 +98,7 @@ function runTests(ParserClass: ParserClassType) {
 
     it('parse group expression', () => {
       const expression = '(5 + 9) / 2';
-      const parser = new ParserClass(new Lexer(expression));
+      const parser = new Parser(new Lexer(expression));
       const ast = parser.parseExpression();
 
       deepStrictEqual(ast, {
@@ -130,7 +128,7 @@ function runTests(ParserClass: ParserClassType) {
 
     it('correctly parse unary operator precedence', () => {
       const expression = '5 * -5';
-      const parser = new ParserClass(new Lexer(expression));
+      const parser = new Parser(new Lexer(expression));
       const ast = parser.parseExpression();
 
       deepStrictEqual(ast, {
@@ -153,7 +151,7 @@ function runTests(ParserClass: ParserClassType) {
 
     it('correctly parse complex expression', () => {
       const expression = '(1 + 4) * 5 / (10 + -5)';
-      const parser = new ParserClass(new Lexer(expression));
+      const parser = new Parser(new Lexer(expression));
       const ast = parser.parseExpression();
 
       deepStrictEqual(ast, {
@@ -206,7 +204,7 @@ function runTests(ParserClass: ParserClassType) {
 
     it('throw error for invalid parentheses', () => {
       const expression = '(1 + 4( * 5';
-      const parser = new ParserClass(new Lexer(expression));
+      const parser = new Parser(new Lexer(expression));
 
       try {
         parser.parseExpression();
@@ -221,7 +219,7 @@ function runTests(ParserClass: ParserClassType) {
 
     it('throw error for missing right parentheses', () => {
       const expression = '(1 + 4 * 5';
-      const parser = new ParserClass(new Lexer(expression));
+      const parser = new Parser(new Lexer(expression));
 
       try {
         parser.parseExpression();
@@ -236,7 +234,7 @@ function runTests(ParserClass: ParserClassType) {
 
     it('throw error for missing left parentheses', () => {
       const expression = '1 + 4) * 5';
-      const parser = new ParserClass(new Lexer(expression));
+      const parser = new Parser(new Lexer(expression));
 
       try {
         parser.parseExpression();
@@ -251,7 +249,7 @@ function runTests(ParserClass: ParserClassType) {
 
     it('throw error for invalid unary operator', () => {
       const expression = '1 + *5';
-      const parser = new ParserClass(new Lexer(expression));
+      const parser = new Parser(new Lexer(expression));
 
       try {
         parser.parseExpression();
