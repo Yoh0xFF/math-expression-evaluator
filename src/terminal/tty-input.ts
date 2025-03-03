@@ -1,6 +1,6 @@
-import { LexerClassType } from '@root/lexer';
-import { ParserClassType } from '@root/parser';
-import { processExpression } from '@root/terminal/process-expression';
+import { LexerClassType } from '@root/lexer/index.ts';
+import { ParserClassType } from '@root/parser/index.ts';
+import { processExpression } from '@root/terminal/process-expression.ts';
 import { clearLine, cursorTo, emitKeypressEvents, Key } from 'readline';
 
 export class TtyInput {

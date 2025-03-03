@@ -11,8 +11,8 @@
   ],
   "license": "MIT",
   "author": "Ioram Gordadze <Yoh0xFF@gmail.com>",
-  "type": "commonjs",
-  "main": "dist/index.js",
+  "type": "module",
+  "main": "dist/index.mjs",
   "scripts": {
     "build": "tsc && tsup",
     "build:dev": "tsc --watch",

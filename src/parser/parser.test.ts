@@ -1,7 +1,7 @@
-import { getLexerClass } from '@root/lexer';
-import { ParserClassType } from '@root/parser';
-import { PrattParser } from '@root/parser/pratt-parser';
-import { RecursiveDescentParser } from '@root/parser/recursive-descent-parser';
+import { getLexerClass } from '@root/lexer/index.ts';
+import { ParserClassType } from '@root/parser/index.ts';
+import { PrattParser } from '@root/parser/pratt-parser.ts';
+import { RecursiveDescentParser } from '@root/parser/recursive-descent-parser.ts';
 import { deepStrictEqual, fail, strictEqual } from 'node:assert';
 import { describe, it } from 'node:test';
 

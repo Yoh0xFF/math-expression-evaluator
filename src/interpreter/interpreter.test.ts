@@ -1,6 +1,6 @@
-import { evaluateExpression } from '@root/interpreter';
-import { getLexerClass, LexerClassType } from '@root/lexer';
-import { getParserClass, ParserClassType } from '@root/parser';
+import { evaluateExpression } from '@root/interpreter/index.ts';
+import { getLexerClass, LexerClassType } from '@root/lexer/index.ts';
+import { getParserClass, ParserClassType } from '@root/parser/index.ts';
 import { strictEqual } from 'node:assert';
 import { describe, it } from 'node:test';
 

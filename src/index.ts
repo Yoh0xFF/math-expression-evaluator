@@ -1,6 +1,6 @@
-import { getLexerClass } from '@root/lexer';
-import { getParserClass } from '@root/parser';
-import { TerminalInput } from '@root/terminal';
+import { getLexerClass } from '@root/lexer/index.ts';
+import { getParserClass } from '@root/parser/index.ts';
+import { TerminalInput } from '@root/terminal/index.ts';
 import { config } from 'dotenv';
 
 config();
